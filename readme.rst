@@ -1,5 +1,5 @@
 ###################
-What is Infrashool
+What is Infraschool
 ###################
 
 Infraschool is an open-source application designed to streamline the management of school facilities and infrastructure. Whether you're managing classrooms, labs, sports facilities, or other essential resources, Infraschool provides an intuitive and efficient solution tailored for educational institutions.
@@ -17,6 +17,8 @@ Changelog and New Features
 v.0.0.1
 
 - Added: Home Page
+- Added: Login Page
+- Added: Dashboard Admin
 
 *******************
 Server Requirements
