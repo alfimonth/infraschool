@@ -1,0 +1,17 @@
+.scroll-top {
+  position: fixed;  /* Membuat tombol tetap di tempat saat scrolling */
+  bottom: 20px;     /* Jarak dari bawah */
+  right: 20px;      /* Jarak dari kanan */
+  z-index: 1050;    /* Pastikan tombol berada di atas konten */
+  display: none;    /* Tombol disembunyikan secara default */
+}
+
+.scroll-top.show {
+  display: block;  /* Tombol muncul saat halaman digulir */
+}
+
+.general-info {
+  width: fit-content;
+  height: fit-content;
+}
+
