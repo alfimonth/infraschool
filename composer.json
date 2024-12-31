@@ -1,0 +1,8 @@
+{
+	"name": "dita/sarpras",
+	"description": "sarpras",
+	"version": "0.0.1",
+	"require": {
+		"twbs/bootstrap": "5.0.2"
+	}
+}
