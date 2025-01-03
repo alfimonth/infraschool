@@ -53,6 +53,10 @@
       color: #fff;
       font-weight: bold;
     }
+
+    .icon-options input[type="radio"]:checked+.icon-label {
+      color: #fff;
+    }
   </style>
 </head>
 

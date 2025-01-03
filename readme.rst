@@ -20,6 +20,7 @@ v.0.0.4
 - Added: Login Page
 - Added: Dashboard Admin
 - Added: General Admin
+- Added: Admin Kategori
 
 *******************
 Server Requirements

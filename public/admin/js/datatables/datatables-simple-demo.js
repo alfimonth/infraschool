@@ -6,4 +6,13 @@ window.addEventListener('DOMContentLoaded', event => {
     if (datatablesSimple) {
         new simpleDatatables.DataTable(datatablesSimple);
     }
+
+    const kategoriPeralatan = document.getElementById('kategoriPeralatan');
+    if (kategoriPeralatan) {
+        new simpleDatatables.DataTable(kategoriPeralatan);
+    }
+    const subKategoriPeralatan = document.getElementById('subKategoriPeralatan');
+    if (subKategoriPeralatan) {
+        new simpleDatatables.DataTable(subKategoriPeralatan);
+    }
 });

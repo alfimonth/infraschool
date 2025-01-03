@@ -21,6 +21,7 @@
  * @property CI_User_agent       $agent
  * @property ModelUtama $ModelUtama
  * @property ModelUser $ModelUser
+ * @property ModelSarpras $ModelSarpras
  */
 
 class CI_Controller {}

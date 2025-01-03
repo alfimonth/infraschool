@@ -22,7 +22,7 @@
 <!-- <script src="<?= base_url('public/admin/assets/demo/chart-area-demo.js') ?>"></script> -->
 <!-- <script src="<?= base_url('public/admin/assets/demo/chart-bar-demo.js') ?>"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="<?= base_url('public/admin/js/datatables/datatables-simple-demo.js') ?>"></script>
+<script src="<?= base_url('public/admin/js/datatables/datatables-simple-demo.js') ?>?v=<?= time() ?>"></script>
 <script src=" https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js" crossorigin="anonymous"></script>
 <script src="<?= base_url('public/admin/js/litepicker.js') ?>"></script>
 
