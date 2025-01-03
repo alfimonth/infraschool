@@ -9,7 +9,7 @@
         <?php foreach ($general_info as $info): ?>
           <div class="col-4 col-lg-2 d-flex flex-column align-items-center justify-content-start gap-2">
             <i data-feather="<?= $info['ikon'] ?>"></i>
-            <span class="text-center"><?= $info['nilai'] . ' ' . $info['satuan'] ?></span>
+            <span class="text-center"><?= $info['value'] . ' ' . $info['satuan'] ?></span>
           </div>
         <?php endforeach; ?>
         <script>

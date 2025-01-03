@@ -92,6 +92,9 @@
               <a class="nav-link " href="javascript:void(0);">
                 Peralatan
               </a>
+              <a class="nav-link " href="<?= base_url('sarpras/kategori') ?>">
+                Kategori
+              </a>
             </nav>
           </div>
           <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

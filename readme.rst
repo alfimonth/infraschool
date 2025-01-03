@@ -14,11 +14,12 @@ This repo contains in-development code for future releases.
 Changelog and New Features
 **************************
 
-v.0.0.1
+v.0.0.4
 
 - Added: Home Page
 - Added: Login Page
 - Added: Dashboard Admin
+- Added: General Admin
 
 *******************
 Server Requirements

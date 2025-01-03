@@ -28,8 +28,8 @@ class Admin extends MY_AdminController
   }
   public function add_general()
   {
-    $this->form_validation->set_rules('nama', 'Nama', 'required|trim|max_length[100]');
-    $this->form_validation->set_rules('nilai', 'Nilai', 'required');
+    $this->form_validation->set_rules('jenis', 'jenis', 'required|trim|max_length[100]');
+    $this->form_validation->set_rules('value', 'value', 'required');
     $this->form_validation->set_rules('satuan', 'Satuan', 'required|trim|max_length[50]');
     $this->form_validation->set_rules('ikon', 'Ikon', 'required|trim');
 
@@ -49,8 +49,8 @@ class Admin extends MY_AdminController
 
   public function edit_general($id)
   {
-    $this->form_validation->set_rules('nama', 'Nama', 'required|trim|max_length[100]');
-    $this->form_validation->set_rules('nilai', 'Nilai', 'required');
+    $this->form_validation->set_rules('jenis', 'jenis', 'required|trim|max_length[100]');
+    $this->form_validation->set_rules('value', 'value', 'required');
     $this->form_validation->set_rules('satuan', 'Satuan', 'required|trim|max_length[50]');
     $this->form_validation->set_rules('ikon', 'Ikon', 'required|trim');
 
