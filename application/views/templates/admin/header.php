@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title><?= $this->config->item('app_name'); ?><?= isset($title) ? ' | ' . $title : ''; ?></title>
+  <title>Admin <?= $this->config->item('app_name'); ?><?= isset($title) ? ' - ' . $title : ''; ?></title>
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" rel="stylesheet" />
   <link href="<?= base_url('public/admin/css/styles.css" rel="stylesheet') ?>" />

@@ -19,6 +19,7 @@
  * @property CI_Session          $session
  * @property CI_URI              $uri
  * @property CI_User_agent       $agent
+ * @property CI_Upload           $upload
  * @property ModelUtama $ModelUtama
  * @property ModelUser $ModelUser
  * @property ModelSarpras $ModelSarpras

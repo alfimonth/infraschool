@@ -14,13 +14,14 @@ This repo contains in-development code for future releases.
 Changelog and New Features
 **************************
 
-v.0.0.4
+v.0.0.5
 
 - Added: Home Page
 - Added: Login Page
 - Added: Dashboard Admin
 - Added: General Admin
 - Added: Admin Kategori
+- Added: Admin Ruang
 
 *******************
 Server Requirements

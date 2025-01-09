@@ -13,9 +13,9 @@ class Auth extends CI_Controller
   {
     $data['title'] = 'Login';
 
-    if ($this->session->userdata('email')) {
-      redirect('user');
-    }
+    // if ($this->session->userdata('email')) {
+    //   redirect('user');
+    // }
 
     $this->form_validation->set_rules(
       'nomor_induk',
@@ -59,7 +59,7 @@ class Auth extends CI_Controller
         redirect('auth/login');
       }
     } else {
-      $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Email tidak terdaftar!!</div>');
+      $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Nomor induk terdaftar!!</div>');
       redirect('auth/login');
     }
   }

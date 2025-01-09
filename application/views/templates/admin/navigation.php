@@ -66,33 +66,33 @@
           <!-- Sidenav Menu Heading (Core)-->
           <br>
           <!-- Sidenav Accordion (Dashboard)-->
-          <a class="nav-link" href="<?= base_url('admin'); ?>">
+          <a class="nav-link <?= uri_string() == 'admin' ? 'active' : "" ?>" href="<?= base_url('admin'); ?>">
             <div class="nav-link-icon"><i data-feather="activity"></i></div>
             Dashboards
           </a>
           <!-- Sidenav Heading (Custom)-->
           <div class="sidenav-menu-heading">Master Data</div>
-          <a class="nav-link" href="<?= base_url('admin/general'); ?>">
+          <a class="nav-link <?= strpos(uri_string(), 'general') !== false ? 'active' : "" ?>" href="<?= base_url('admin/general'); ?>">
             <div class="nav-link-icon"><i data-feather="globe"></i></div>
             General
           </a>
           <!-- Sidenav Accordion (Pages)-->
 
-          <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSarpras" aria-expanded="false" aria-controls="collapseSarpras">
+          <a class="nav-link collapsed <?= strpos(uri_string(), 'sarpras/') !== false ? 'active collapsed' : "" ?>" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSarpras" aria-expanded="false" aria-controls="collapseSarpras">
             <div class="nav-link-icon"><i data-feather="package"></i></div>
             Sarpras
             <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
           </a>
-          <div class="collapse" id="collapseSarpras" data-bs-parent="#accordionSidenav">
+          <div class="collapse <?= strpos(uri_string(), 'sarpras/') !== false ? 'show' : "" ?>" id="collapseSarpras" data-bs-parent="#accordionSidenav">
             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
               <!-- Nested Sidenav Accordion (Pages -> Account)-->
-              <a class="nav-link " href="javascript:void(0);">
+              <a class="nav-link <?= uri_string() == 'sarpras/ruang' ? 'active' : "" ?>" href="<?= base_url('sarpras/ruang') ?>">
                 Ruangan
               </a>
-              <a class="nav-link " href="javascript:void(0);">
+              <a class="nav-link " href="<?= base_url('sarpras/peralatan') ?>">
                 Peralatan
               </a>
-              <a class="nav-link " href="<?= base_url('sarpras/kategori') ?>">
+              <a class="nav-link <?= uri_string() == 'sarpras/kategori' ? 'active' : "" ?>" href="<?= base_url('sarpras/kategori') ?>">
                 Kategori
               </a>
             </nav>

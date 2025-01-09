@@ -14,13 +14,16 @@ class Admin extends MY_AdminController
   }
   public function dashboard()
   {
-    $this->load->view('templates/admin/header');
+    $data['title'] = 'Dashboard';
+    $this->load->view('templates/admin/header', $data);
     $this->load->view('admin/dashboard');
     $this->load->view('templates/admin/footer');
   }
 
   public function general()
   {
+    $data['title'] = 'General';
+
     $data['general_info'] = $this->ModelUtama->getData();
     $this->load->view('templates/admin/header', $data);
     $this->load->view('admin/general');
@@ -28,6 +31,7 @@ class Admin extends MY_AdminController
   }
   public function add_general()
   {
+
     $this->form_validation->set_rules('jenis', 'jenis', 'required|trim|max_length[100]');
     $this->form_validation->set_rules('value', 'value', 'required');
     $this->form_validation->set_rules('satuan', 'Satuan', 'required|trim|max_length[50]');
