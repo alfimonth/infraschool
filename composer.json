@@ -3,6 +3,7 @@
 	"description": "sarpras",
 	"version": "0.0.6",
 	"require": {
-		"twbs/bootstrap": "5.0.2"
+		"twbs/bootstrap": "5.0.2",
+		"phpoffice/phpspreadsheet": "^3.7"
 	}
 }

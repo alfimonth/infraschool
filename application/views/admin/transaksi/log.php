@@ -92,7 +92,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <?php endif; ?>
 
       <div class="card mb-4">
+
         <div class="card-body">
+          <a href="<?= base_url('export/logToExcel') ?>" class="btn btn-success mb-3"><i class="far fa-file-excel me-2"></i>Excel </a>
           <table id="datatablesSimple">
             <thead>
               <tr>
