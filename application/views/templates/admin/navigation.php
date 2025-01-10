@@ -89,7 +89,7 @@
               <a class="nav-link <?= uri_string() == 'sarpras/ruang' ? 'active' : "" ?>" href="<?= base_url('sarpras/ruang') ?>">
                 Ruangan
               </a>
-              <a class="nav-link " href="<?= base_url('sarpras/peralatan') ?>">
+              <a class="nav-link <?= uri_string() == 'sarpras/peralatan' ? 'active' : "" ?>" href="<?= base_url('sarpras/peralatan') ?>">
                 Peralatan
               </a>
               <a class="nav-link <?= uri_string() == 'sarpras/kategori' ? 'active' : "" ?>" href="<?= base_url('sarpras/kategori') ?>">

@@ -4,28 +4,46 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelSarpras extends CI_Model
 {
-  public function getRooms()
+  // Kategori
+  public function add($data)
   {
-    return $this->db->get('ruang')->result_array();
+    if ($this->db->insert('kategori', $data)) {
+      // Mengembalikan ID dari data yang baru saja dimasukkan
+      return $this->db->insert_id();
+    } else {
+      return false; // Gagal insert
+    }
   }
   public function getCategories($tipe)
   {
     $this->db->where('tipe', $tipe);
     return $this->db->get('kategori')->result_array();
   }
-
-  public function add($data)
+  public function edit($data, $id)
   {
-    return $this->db->insert('kategori', $data);
+    $this->db->where('id', $id);
+    return $this->db->update('kategori', $data);
   }
+
+  public function delete($id)
+  {
+    $this->db->where('id', $id);
+    return $this->db->delete('kategori');
+  }
+
+  // Ruangan
   public function addRoom($data)
   {
     return $this->db->insert('ruang', $data);
   }
+  public function getRooms()
+  {
+    return $this->db->get('ruang')->result_array();
+  }
 
   public function editRoom($data, $id)
   {
-    
+
     $this->db->where('id', $id);
     return $this->db->update('ruang', $data);
   }
@@ -40,15 +58,33 @@ class ModelSarpras extends CI_Model
     $this->db->where('id', $id);
     return $this->db->delete('ruang');
   }
-  public function edit($data, $id)
+
+  // Peralatan
+
+  public function addTool($data)
   {
-    $this->db->where('id', $id);
-    return $this->db->update('kategori', $data);
+    return $this->db->insert('peralatan', $data);
   }
 
-  public function delete($id)
+  public function getTools()
+  {
+    return $this->db->get('peralatan')->result_array();
+  }
+
+  public function editTool($id, $data)
   {
     $this->db->where('id', $id);
-    return $this->db->delete('kategori');
+    return $this->db->update('peralatan', $data);
+  }
+
+  public function deleteTool($id)
+  {
+    $res = $this->db->select('image')->where('id', $id)->get('peralatan')->row_array();
+    $image_path = './public/uploads/sarpras/peralatan/' . $res['image'];
+    if (file_exists($image_path)) {
+      unlink($image_path);
+    }
+    $this->db->where('id', $id);
+    return $this->db->delete('peralatan');
   }
 }

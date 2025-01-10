@@ -14,7 +14,7 @@ This repo contains in-development code for future releases.
 Changelog and New Features
 **************************
 
-v.0.0.5
+v.0.0.6
 
 - Added: Home Page
 - Added: Login Page
@@ -22,6 +22,7 @@ v.0.0.5
 - Added: General Admin
 - Added: Admin Kategori
 - Added: Admin Ruang
+- Added: Admin Peralatan
 
 *******************
 Server Requirements

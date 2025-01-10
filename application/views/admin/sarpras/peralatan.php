@@ -9,11 +9,11 @@
             <div class="col-auto mb-3">
               <h1 class="page-header-title">
                 <div class="page-header-icon"><i data-feather="globe"></i></div>
-                Kelola Ruang
+                Kelola Peralatan
               </h1>
             </div>
             <div class="col-12 col-xl-auto mb-3">
-              <button id="tambahData" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalAddGeneral">Tambah Jenis Ruangan</button>
+              <button id="tambahData" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalAddGeneral">Tambah Jenis Peralatan</button>
             </div>
           </div>
         </div>
@@ -97,7 +97,6 @@
                 <th>No</th>
                 <th>jenis Informasi</th>
                 <th>Gambar</th>
-                <th>Luas</th>
                 <th>Tersedia</th>
                 <th>Rusak</th>
                 <th>Aksi</th>
@@ -105,38 +104,36 @@
             </thead>
             <tbody>
               <?php $index = 1;
-              foreach ($rooms as $room) : ?>
+              foreach ($tools as $tool) : ?>
                 <tr>
                   <td><?= $index ?></td>
-                  <td><?= $room['jenis'] ?></td>
-                  <td><img src="<?= base_url('public/uploads/sarpras/ruang/' . $room['image']) ?>" class="img-room" alt="gambar-<?= $room['jenis'] ?>"></td>
-                  <td><?= $room['panjang'] ?> x <?= $room['lebar'] ?> m<sup>2</sup></td>
-                  <td><?= $room['baik'] ?> </td>
-                  <td><?= $room['rusak'] ?> </td>
+                  <td><?= $tool['jenis'] ?></td>
+                  <td><img src="<?= base_url('public/uploads/sarpras/peralatan/' . $tool['image']) ?>" class="img-room" alt="gambar-<?= $tool['jenis'] ?>"></td>
+                  <td><?= $tool['baik'] ?> </td>
+                  <td><?= $tool['rusak'] ?> </td>
                   <td>
                     <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
-                      data-id="<?= $room['id'] ?>"
-                      data-jenis="<?= $room['jenis'] ?>">
+                      data-id="<?= $tool['id'] ?>"
+                      data-jenis="<?= $tool['jenis'] ?>">
                       <i data-feather="plus"></i>
                     </button>
                     <button class="btn btn-datatable  btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
-                      data-id="<?= $room['id'] ?>"
-                      data-jenis="<?= $room['jenis'] ?>">
+                      data-id="<?= $tool['id'] ?>"
+                      data-jenis="<?= $tool['jenis'] ?>">
                       <i data-feather="minus"></i>
                     </button>
                     <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
-                      data-id="<?= $room['id'] ?>"
-                      data-jenis="<?= $room['jenis'] ?>"
-                      data-image="<?= $room['image'] ?>"
-                      data-panjang="<?= $room['panjang'] ?>"
-                      data-lebar="<?= $room['lebar'] ?>"
-                      data-kategori="<?= $room['id_kategori'] ?>">
+                      data-id="<?= $tool['id'] ?>"
+                      data-jenis="<?= $tool['jenis'] ?>"
+                      data-image="<?= $tool['image'] ?>"
+                      data-kategori="<?= $tool['id_kategori'] ?>"
+                      data-subkategori="<?= $tool['id_subkategori'] ?>">
                       <i data-feather="edit"></i>
                     </button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                       class="btn btn-datatable btn-icon btn-transparent-dark hapus"
-                      data-id="<?= $room['id'] ?>"
-                      data-jenis="<?= $room['jenis'] ?>"><i data-feather="trash-2"></i></button>
+                      data-id="<?= $tool['id'] ?>"
+                      data-jenis="<?= $tool['jenis'] ?>"><i data-feather="trash-2"></i></button>
                   </td>
                 </tr>
               <?php $index++;
@@ -179,7 +176,7 @@
           $('.hapus').on('click', function() {
             const id = $(this).data('id');
             const jenis = $(this).data('jenis');
-            var u = '<?= base_url('sarpras/delete_ruang/') ?>';
+            var u = '<?= base_url('sarpras/delete_peralatan/') ?>';
 
             $('#dihapus').html(jenis);
             document.querySelector('#linkHapus').href = u + id;
@@ -192,15 +189,15 @@
       <div class="modal fade" id="modalAddGeneral" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
-            <form action="<?= base_url('sarpras/add_ruang') ?>" method="post" id="formGeneral" enctype="multipart/form-data">
+            <form action="<?= base_url('sarpras/add_peralatan') ?>" method="post" id="formGeneral" enctype="multipart/form-data">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Ruangan</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Peralatan</h5>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="jenis">Jenis Ruangan</label>
-                  <input class="form-control" name="jenis" id="jenis" type="text" placeholder="Masukkan jenis ruangan" required>
+                  <label for="jenis">Jenis Peralatan</label>
+                  <input class="form-control" name="jenis" id="jenis" type="text" placeholder="Masukkan jenis peralatan" required>
                 </div>
                 <div class="mb-3 hidden" id="image-preview-container">
                   <label for="image" class="form-label">Gambar Saat Ini</label>
@@ -225,23 +222,12 @@
                   <label for="image" class="form-label">Gambar</label>
                   <input class="form-control" name="image" id="image" type="file" placeholder="Masukkan gambar Informasi">
                 </div>
-                <div class="mb-3">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label for="panjang" class="form-label">Panjang (m)</label>
-                      <input class="form-control" name="panjang" id="panjang" type="text" placeholder="Masukkan panjang" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="lebar" class="form-label">Lebar (m)</label>
-                      <input class="form-control" name="lebar" id="lebar" type="text" placeholder="Masukkan lebar" required>
-                    </div>
-                  </div>
-                </div>
+
 
 
                 <div class="mb-3">
                   <span class="form-label">Pilih Kategori</span>
-                  <div class="icon-options" id="kategori-options">
+                  <div class="icon-options" id="kategori-container">
                     <?php foreach ($categories as $category) : ?>
                       <input type="radio" class="form-check-input" name="id_kategori" id="kategori_<?= $category['id'] ?>" value="<?= $category['id'] ?>">
                       <label class="icon-label" for="kategori_<?= $category['id'] ?>">
@@ -258,6 +244,25 @@
                   <label for="kategori">Kategori baru</label>
                   <input class="form-control" name="new_kategori" id="kategori" type="text" placeholder="Masukkan kategori baru" disabled>
                 </div>
+                <div class="mb-3">
+                  <span class="form-label">Pilih Sub Kategori</span>
+                  <div class="icon-options" id="subkategori-container">
+                    <?php foreach ($subCategories as $category) : ?>
+                      <input type="radio" class="form-check-input" name="id_subkategori" id="subkategori_<?= $category['id'] ?>" value="<?= $category['id'] ?>">
+                      <label class="icon-label" for="subkategori_<?= $category['id'] ?>">
+                        <?= $category['nama'] ?>
+                      </label>
+                    <?php endforeach; ?>
+                    <input type="radio" class="form-check-input" name="id_subkategori" id="new_subkategori" value="new">
+                    <label class="icon-label" for="new_subkategori">
+                      <i data-feather="plus"></i>
+                    </label>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="subkategori">Sub Kategori baru</label>
+                  <input class="form-control" name="new_subkategori" id="subkategori" type="text" placeholder="Masukkan subkategori baru" disabled>
+                </div>
 
                 <script>
                   $(document).ready(function() {
@@ -271,6 +276,16 @@
                         $('#kategori').prop('disabled', true).prop('required', false).val('');
                       }
                     });
+
+                    $('input[name="id_subkategori"]').on('change', function() {
+                      if ($('#new_subkategori').is(':checked')) {
+                        // Aktifkan input field dan jadikan required
+                        $('#subkategori').prop('disabled', false).prop('required', true);
+                      } else {
+                        // Nonaktifkan input field dan hapus required
+                        $('#subkategori').prop('disabled', true).prop('required', false).val('');
+                      }
+                    })
                   });
                 </script>
 
@@ -287,49 +302,54 @@
           // Ketika tombol edit diklik
           $('.edit').on('click', function() {
             inputMode = 'edit';
-            updateKategori();
-            $('#exampleModalCenterTitle').text('Edit Ruangan');
+            $('#exampleModalCenterTitle').text('Edit Peralatan');
             const id = $(this).data('id');
             const jenis = $(this).data('jenis');
             const image = $(this).data('image');
-            const panjang = $(this).data('panjang');
-            const lebar = $(this).data('lebar');
             const kategori = $(this).data('kategori');
+            const subkategori = $(this).data('subkategori');
 
             // Isi data ke dalam form modal edit
             $('#jenis').val(jenis);
             $('#image-preview-container').removeClass('hidden');
-            $('#image-recent').attr('src', '<?= base_url('public/uploads/sarpras/ruang/') ?>' + image);
-            $('#panjang').val(panjang);
-            $('#lebar').val(lebar);
+            $('#image-recent').attr('src', '<?= base_url('public/uploads/sarpras/peralatan/') ?>' + image);
+
 
             $(`#kategori_${kategori}`).prop('checked', true);
+            $(`#subkategori_${subkategori}`).prop('checked', true);
 
-            $('#formGeneral').attr('action', '<?= base_url('sarpras/edit_ruang/') ?>' + id);
+            $('#formGeneral').attr('action', '<?= base_url('sarpras/edit_peralatan/') ?>' + id);
 
             // Tampilkan modal edit
             $('#modalEditGeneral').modal('show');
+            updateKategori();
           });
 
           $('#tambahData').on('click', function() {
             updateKategori();
             if (inputMode === 'edit') {
               inputMode = 'add';
-              $('#exampleModalCenterTitle').text('Tambah Ruangan');
+              $('#exampleModalCenterTitle').text('Tambah Peralatan');
               $('#jenis').val('');
               $('#value').val('');
               $('#satuan').val('');
-              $(`#kategori-options input`).first().prop('checked', true);
-              $('#formGeneral').attr('action', '<?= base_url('sarpras/add_ruang') ?>');
+              $(`#kategori-container input`).first().prop('checked', true);
+              $(`#subkategori-container input`).first().prop('checked', true);
+              $('#formGeneral').attr('action', '<?= base_url('sarpras/add_peralatan') ?>');
               $('#image-preview-container').addClass('hidden');
+
             }
 
             if (inputMode === 'unset') {
               inputMode = 'add';
-              $(`#kategori-options input`).first().prop('checked', true);
+              $(`#kategori-container input`).first().prop('checked', true);
+              $(`#subkategori-container input`).first().prop('checked', true);
+
             }
+
           });
 
+          // Event listener untuk perubahan radio button
           function updateKategori() {
             if ($('#new_kategori').is(':checked')) {
               // Aktifkan input field dan jadikan required
@@ -344,6 +364,8 @@
               $('#subkategori').prop('disabled', true).prop('required', false).val('');
             }
           }
+
+
 
         });
       </script>
