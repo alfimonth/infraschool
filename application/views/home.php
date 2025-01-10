@@ -22,7 +22,7 @@
           <?php foreach ($rooms as $room): ?>
             <div class="col-4 col-lg-2 d-flex flex-column align-items-center justify-content-start gap-2">
               <img class="w-100" src="<?= base_url('public/uploads/sarpras/ruang/' . $room['image']) ?>" alt="">
-              <span class="text-center"><?= $room['jenis'] ?> 1</span>
+              <span class="text-center"><?= $room['jenis'] ?></span>
             </div>
           <?php endforeach; ?>
         </div>
@@ -31,10 +31,10 @@
       <section class="my-5">
         <h1>Peralatan</h1>
         <div id="rooms" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-8 g-4">
-          <?php foreach ($rooms as $room): ?>
+          <?php foreach ($tools as $tool): ?>
             <div class="col-4 col-lg-2 d-flex flex-column align-items-center justify-content-start gap-2">
-              <img class="w-100" src="<?= base_url('public/uploads/sarpras/ruang/' . $room['image']) ?>" alt="">
-              <span class="text-center"><?= $room['jenis'] ?></span>
+              <img class="w-100" src="<?= base_url('public/uploads/sarpras/peralatan/' . $tool['image']) ?>" alt="">
+              <span class="text-center"><?= $tool['jenis'] ?></span>
             </div>
 
           <?php endforeach; ?>

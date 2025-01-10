@@ -18,6 +18,7 @@ class Home extends CI_Controller
 		$data['title'] = 'Home';
 		$data['general_info'] = $this->ModelUtama->getData();
 		$data['rooms'] = $this->ModelSarpras->getRooms();
+		$data['tools'] = $this->ModelSarpras->getTools();
 
 
 		$this->load->view('templates/main_header', $data);
