@@ -142,6 +142,10 @@
           <!-- Sidenav Heading (UI Toolkit)-->
           <div class="sidenav-menu-heading">Transaksi</div>
           <!-- Sidenav Accordion (Layout)-->
+          <a class="nav-link <?= uri_string() == 'transaksi/log' ? 'active' : "" ?>" href="<?= base_url('transaksi') ?>">
+            <div class="nav-link-icon"><i data-feather="layout"></i></div>
+            Log
+          </a>
           <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseComponents" aria-expanded="false" aria-controls="collapseComponents">
             <div class="nav-link-icon"><i data-feather="repeat"></i></div>
             Peminjaman

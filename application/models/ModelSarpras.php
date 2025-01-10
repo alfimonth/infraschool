@@ -100,4 +100,14 @@ class ModelSarpras extends CI_Model
     $this->db->where('id', $id);
     return $this->db->delete('peralatan');
   }
+
+
+  public function updateStok($id, $tabel, $data)
+  {
+    foreach ($data as $key => $value) {
+      $this->db->set($key, "$key + $value", FALSE); // Menambahkan nilai baru ke kolom yang ada
+    }
+    $this->db->where('id', $id);
+    return $this->db->update(strtolower($tabel));
+  }
 }

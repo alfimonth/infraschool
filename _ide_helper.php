@@ -23,6 +23,7 @@
  * @property ModelUtama $ModelUtama
  * @property ModelUser $ModelUser
  * @property ModelSarpras $ModelSarpras
+ * @property ModelTransaksi $ModelTransaksi
  */
 
 class CI_Controller {}

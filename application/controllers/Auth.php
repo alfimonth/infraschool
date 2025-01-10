@@ -13,9 +13,9 @@ class Auth extends CI_Controller
   {
     $data['title'] = 'Login';
 
-    // if ($this->session->userdata('email')) {
-    //   redirect('user');
-    // }
+    if ($this->session->userdata('role') == 'admin') {
+      redirect('admin');
+    }
 
     $this->form_validation->set_rules(
       'nomor_induk',
