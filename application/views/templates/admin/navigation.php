@@ -97,32 +97,32 @@
               </a>
             </nav>
           </div>
-          <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+          <a class="nav-link collapsed <?= strpos(uri_string(), 'user/') !== false ? 'active collapsed' : "" ?>" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
             <div class="nav-link-icon"><i data-feather="user"></i></div>
             User
             <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
           </a>
-          <div class="collapse" id="collapsePages" data-bs-parent="#accordionSidenav">
+          <div class="collapse <?= strpos(uri_string(), 'user/') !== false ? 'show' : "" ?>" id="collapsePages" data-bs-parent="#accordionSidenav">
             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
               <!-- Nested Sidenav Accordion (Pages -> Account)-->
-              <a class="nav-link " href="javascript:void(0);">
+              <a class="nav-link <?= uri_string() == 'user/admin' ? 'active' : "" ?>" href="<?= base_url('user/admin') ?>">
                 Admin
               </a>
               <!-- Nested Sidenav Accordion (Pages -> Authentication)-->
-              <a class="nav-link collapsed" href="<?= base_url('admin') ?>" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+              <a class="nav-link collapsed <?= strpos(uri_string(), 'user/anggota') !== false ? 'active collapsed' : "" ?>" href="<?= base_url('admin') ?>" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                 Angggota
                 <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
               </a>
-              <div class="collapse" id="pagesCollapseAuth" data-bs-parent="#accordionSidenavPagesMenu">
+              <div class="collapse <?= strpos(uri_string(), 'user/anggota') !== false ? 'show' : "" ?>" id="pagesCollapseAuth" data-bs-parent="#accordionSidenavPagesMenu">
                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesAuth">
                   <!-- Nested Sidenav Accordion (Pages -> Authentication -> Basic)-->
-                  <a class="nav-link" href="javascript:void(0);">
+                  <a class="nav-link <?= uri_string() == 'user/anggota/guru' ? 'active' : "" ?>" href="<?= base_url('user/anggota/guru') ?>">
                     Guru
 
                   </a>
 
                   <!-- Nested Sidenav Accordion (Pages -> Authentication -> Social)-->
-                  <a class="nav-link " href="javascript:void(0);">
+                  <a class="nav-link <?= uri_string() == 'user/anggota/siswa' ? 'active' : "" ?>" href="<?= base_url('user/anggota/siswa') ?>">
                     Siswa
 
                   </a>
