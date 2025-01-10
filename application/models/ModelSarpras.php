@@ -16,8 +16,21 @@ class ModelSarpras extends CI_Model
   }
   public function getCategories($tipe)
   {
-    $this->db->where('tipe', $tipe);
-    return $this->db->get('kategori')->result_array();
+    $this->db->from('kategori')->where('tipe', $tipe);
+    if ($tipe == 'Ruang') {
+      $this->db->select('kategori.*, COUNT(ruang.id) as jumlah');
+      $this->db->join('ruang', 'ruang.id_kategori = kategori.id', 'left');
+    }
+    if ($tipe == 'Peralatan') {
+      $this->db->select('kategori.*, COUNT(peralatan.id) as jumlah');
+      $this->db->join('peralatan', 'peralatan.id_kategori = kategori.id', 'left');
+    }
+
+    if ($tipe == 'subPeralatan') {
+      $this->db->select('kategori.*, COUNT(peralatan.id) as jumlah');
+      $this->db->join('peralatan', 'peralatan.id_subkategori = kategori.id', 'left');
+    }
+    return $this->db->get()->result_array();
   }
   public function edit($data, $id)
   {

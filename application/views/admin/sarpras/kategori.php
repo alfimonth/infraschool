@@ -114,7 +114,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <tr>
                     <td><?= $index ?></td>
                     <td><?= $category['nama'] ?> </td>
-                    <td>0</td>
+                    <td><?= $category['jumlah'] ?> jenis</td>
                     <td>
                       <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
                         data-id="<?= $category['id'] ?>"
@@ -159,7 +159,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <tr>
                     <td><?= $index ?></td>
                     <td><?= $category['nama'] ?> </td>
-                    <td>0</td>
+                    <td><?= $category['jumlah'] ?> jenis</td>
                     <td>
                       <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
                         data-id="<?= $category['id'] ?>"
@@ -204,7 +204,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <tr>
                     <td><?= $index ?></td>
                     <td><?= $category['nama'] ?> </td>
-                    <td>0</td>
+                    <td><?= $category['jumlah'] ?> jenis</td>
                     <td>
                       <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
                         data-id="<?= $category['id'] ?>"
