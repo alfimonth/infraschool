@@ -22,4 +22,18 @@ class Export extends MY_AdminController
     $data['logs'] = $this->ModelTransaksi->getLogs();
     $this->load->view('admin/export/excel/log', $data);
   }
+
+  public function logToPdf()
+  {
+    $data['title'] = 'Log';
+    $data['logs'] = $this->ModelTransaksi->getLogs();
+    $this->load->view('admin/export/pdf/log', $data);
+  }
+
+  public function logPrint()
+  {
+    $data['logs'] = $this->ModelTransaksi->getLogs();
+    
+    $this->load->view('admin/export/print/log', $data);    
+  }
 }
