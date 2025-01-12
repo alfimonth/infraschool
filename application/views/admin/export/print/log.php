@@ -1,7 +1,20 @@
 <?php
 
 $appName = $this->config->item('app_name');
-$timestamp = date('d M Y H:i:s');
+date_default_timezone_set('Asia/Jakarta');
+
+// Gunakan IntlDateFormatter untuk format tanggal lokal
+$formatter = new IntlDateFormatter(
+  'id_ID', // Lokal Indonesia
+  IntlDateFormatter::FULL, // Format tanggal penuh
+  IntlDateFormatter::FULL, // Format waktu penuh
+  'Asia/Jakarta', // Timezone
+  IntlDateFormatter::GREGORIAN
+);
+
+// Format khusus untuk tanggal dan waktu
+$formatter->setPattern('d MMMM yyyy HH:mm:ss');
+$timestamp = $formatter->format(new DateTime());
 
 // Ambil path logo
 $path = $_SERVER['DOCUMENT_ROOT'] . "/infraschool/public/assets/img/is.png";

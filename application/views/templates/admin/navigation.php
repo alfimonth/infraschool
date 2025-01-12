@@ -24,7 +24,7 @@
         <h6 class="dropdown-header d-flex align-items-center">
           <img class="dropdown-user-img" src="<?= base_url('public/admin/assets/img/illustrations/profiles/profile-1.png') ?>" />
           <div class="dropdown-user-details">
-            <div class="dropdown-user-details-name"><?= getProfile('nama'); ?></div>
+            <div class="dropdown-user-details-name"><?= getProfile('fullname'); ?></div>
             <div class="dropdown-user-details-email"><?= getProfile('nomor_induk'); ?></div>
           </div>
         </h6>
@@ -175,19 +175,12 @@
               <a class="nav-link" href="tooltips.html">Tooltips</a>
             </nav>
           </div>
-          <a class="nav-link" href="javascript:void(0);">
-            <div class="nav-link-icon"><i data-feather="tool"></i></div>
-            Perbaikan
-          </a>
           <!-- Sidenav Accordion (Components)-->
 
           <!-- Sidenav Heading (Addons)-->
           <div class="sidenav-menu-heading">Laporan</div>
           <!-- Sidenav Link (Charts)-->
-          <a class="nav-link" href="charts.html">
-            <div class="nav-link-icon"><i data-feather="layout"></i></div>
-            Mutasi
-          </a>
+
           <!-- Sidenav Link (Tables)-->
           <a class="nav-link" href="tables.html">
             <div class="nav-link-icon"><i data-feather="printer"></i></div>
@@ -199,7 +192,7 @@
       <div class="sidenav-footer">
         <div class="sidenav-footer-content">
           <div class="sidenav-footer-subtitle">Login sebagai:</div>
-          <div class="sidenav-footer-title"><?= getProfile('nama'); ?></div>
+          <div class="sidenav-footer-title"><?= getProfile('fullname'); ?></div>
         </div>
       </div>
     </nav>

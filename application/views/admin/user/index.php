@@ -10,12 +10,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <div class="row align-items-center justify-content-between pt-3">
             <div class="col-auto mb-3">
               <h1 class="page-header-title">
-                <div class="page-header-icon"><i data-feather="globe"></i></div>
-                Informasi General
+                <div class="page-header-icon"><i data-feather="user"></i></div>
+                Admin
               </h1>
             </div>
             <div class="col-12 col-xl-auto mb-3">
-              <button id="tambahData" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalAddGeneral">Tambah Informasi</button>
+              <button id="tambahData" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalAddGeneral">Tambah Admin</button>
             </div>
           </div>
         </div>
@@ -115,13 +115,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <td><?= $user['email'] ?> </td>
                   <td>
                     <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
-                      data-id="<?= $user['id'] ?>">
+                      data-id="<?= $user['id'] ?>"
+                      data-nomor_induk="<?= $user['nomor_induk'] ?>"
+                      data-fullname="<?= $user['fullname'] ?>"
+                      data-status="<?= $user['status'] ?>"
+                      data-email="<?= $user['email'] ?>">
                       <i data-feather="edit"></i>
                     </button>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                      class="btn btn-datatable btn-icon btn-transparent-dark hapus"
-                      data-id="<?= $user['id'] ?>"
-                      data-jenis="<?= $user['fullname'] ?>"><i data-feather="trash-2"></i></button>
+                    <?php if ($user['id'] != 1 && $user['id'] != getProfile('id')): ?>
+                      <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                        class="btn btn-datatable btn-icon btn-transparent-dark hapus"
+                        data-id="<?= $user['id'] ?>"
+                        data-jenis="<?= $user['fullname'] ?>"><i data-feather="trash-2"></i></button>
+                    <?php endif; ?>
                   </td>
                 </tr>
               <?php $index++;
@@ -155,7 +161,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           $('.hapus').on('click', function() {
             const id = $(this).data('id');
             const jenis = $(this).data('jenis');
-            var u = '<?= base_url('admin/delete_general/') ?>';
+            var u = '<?= base_url('user/delete_admin/')  ?>';
 
             $('#dihapus').html(jenis);
             document.querySelector('#linkHapus').href = u + id;
@@ -168,35 +174,50 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="modal fade" id="modalAddGeneral" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
-            <form action="<?= base_url('admin/add_general') ?>" method="post" id="formGeneral">
+            <form action="<?= base_url('user/add_admin') ?>" method="post" id="formGeneral">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Informasi General</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Admin</h5>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="jenis">jenis Informasi</label>
-                  <input class="form-control" name="jenis" id="jenis" type="text" placeholder="Masukkan jenis Informasi" required>
+                  <label for="nomor_induk">Nomor Induk</label>
+                  <input class="form-control" name="nomor_induk" id="nomor_induk" type="text" placeholder="Masukkan nomor induk" required>
                 </div>
                 <div class="mb-3">
-                  <label for="value">value</label>
-                  <input class="form-control" name="value" id="value" type="text" placeholder="Masukkan value" required>
+                  <label for="fullname">Nama Lengkap</label>
+                  <input class="form-control" name="fullname" id="fullname" type="text" placeholder="Masukkan Nama Lengkap" required>
                 </div>
                 <div class="mb-3">
-                  <label for="satuan">Satuan</label>
-                  <input class="form-control" name="satuan" id="satuan" type="text" placeholder="Masukkan satuan" required>
+                  <label for="email">Email</label>
+                  <input class="form-control" name="email" id="email" type="email" placeholder="Masukkan email" required>
                 </div>
                 <div class="mb-3">
-                  <span class="form-label">Pilih Ikon</span>
-                  <div class="icon-options">
-                    <?php foreach ($feather_icons as $icon) : ?>
-                      <input type="radio" class="form-check-input" name="ikon" id="ikon_<?= $icon ?>" value="<?= $icon ?>">
-                      <label class="icon-label" for="ikon_<?= $icon ?>">
-                        <i data-feather="<?= $icon ?>"></i>
-                      </label>
-                    <?php endforeach; ?>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="password" class="form-label">Password</label>
+                      <input class="form-control" name="password" id="password" type="password" placeholder="Masukkan password" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="confirm-password" class="form-label">Konfirmasi Password</label>
+                      <input class="form-control" name="confirm-password" id="confirm-password" type="password" placeholder="Masukkan konfirmasi password" required>
+                    </div>
                   </div>
                 </div>
+                <!-- <div class="mb-3">
+                  <span class="form-label">Status</span>
+                  <div class="icon-options">
+                    <input type="radio" class="form-check-input" name="ikon" id="guru" value="guru">
+                    <label class="icon-label" for="guru">
+                      Guru
+                      <i data-feather="user"></i>
+                    </label><input type="radio" class="form-check-input" name="ikon" id="siswa" value="siswa">
+                    <label class="icon-label" for="siswa">
+                      Siswa
+                      <i data-feather="users"></i>
+                    </label>
+                  </div>
+                </div> -->
 
                 <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Batal</button><button class="btn btn-primary" type="submit">Simpan</button></div>
             </form>
@@ -211,19 +232,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
           // Ketika tombol edit diklik
           $('.edit').on('click', function() {
             inputMode = 'edit';
+            $('#exampleModalCenterTitle').text('Edit Admin');
             const id = $(this).data('id');
-            const jenis = $(this).data('jenis');
-            const value = $(this).data('value');
-            const satuan = $(this).data('satuan');
-            const ikon = $(this).data('ikon');
+            const fullname = $(this).data('fullname');
+            const nomor_induk = $(this).data('nomor_induk');
+            const email = $(this).data('email');
+            const status = $(this).data('status');
 
             // Isi data ke dalam form modal edit
-            $('#jenis').val(jenis);
-            $('#value').val(value);
-            $('#satuan').val(satuan);
-            $(`#ikon_${ikon}`).prop('checked', true);
+            $('#fullname').val(fullname);
+            $('#nomor_induk').val(nomor_induk);
+            $('#email').val(email);
+            $('#status').val(status);
 
-            $('#formGeneral').attr('action', '<?= base_url('admin/edit_general/') ?>' + id);
+            $('#password').prop('required', false);
+            $('#confirm-password').prop('required', false);
+            $('#formGeneral').attr('action', '<?= base_url('user/edit_admin/') ?>' + id);
+
 
             // Tampilkan modal edit
             $('#modalEditGeneral').modal('show');
@@ -231,17 +256,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
           $('#tambahData').on('click', function() {
             if (inputMode === 'edit') {
+              $('#exampleModalCenterTitle').text('Tambah Admin');
               inputMode = 'add';
-              $('#jenis').val('');
-              $('#value').val('');
-              $('#satuan').val('');
-              $(`#ikon_activity`).prop('checked', true);
-              $('#formGeneral').attr('action', '<?= base_url('admin/add_general') ?>');
+              $('#password').prop('required', true);
+              $('#confirm-password').prop('required', true);
+              $('#fullname').val('');
+              $('#nomor_induk').val('');
+              $('#email').val('');
+              $('#status').val('');
+              $('#formGeneral').attr('action', '<?= base_url('user/add_admin') ?>');
             }
 
             if (inputMode === 'unset') {
               inputMode = 'add';
-              $(`#ikon_activity`).prop('checked', true);
+
             }
           });
 
