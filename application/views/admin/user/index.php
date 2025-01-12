@@ -11,17 +11,43 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="col-auto mb-3">
               <h1 class="page-header-title">
                 <div class="page-header-icon"><i data-feather="user"></i></div>
-                Admin
+                <?= $tipe . ' ' . $filter ?>
               </h1>
             </div>
             <div class="col-12 col-xl-auto mb-3">
-              <button id="tambahData" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalAddGeneral">Tambah Admin</button>
+              <button id="tambahData" class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalAddBulk">
+                <i class="me-1 fa fa-file-excel"></i>
+                Tambah dengan excel</button>
+              <button id="tambahData" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalAddGeneral">Tambah <?= $tipe ?></button>
             </div>
           </div>
         </div>
       </div>
     </header>
-
+    <!-- Bulk Add Modal -->
+    <div class="modal fade" id="modalAddBulk" tabindex="-1" role="dialog" aria-labelledby="bulkAddModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <form action="<?= base_url('user/add_bulk') ?>" method="post" enctype="multipart/form-data">
+            <div class="modal-header">
+              <h5 class="modal-title" id="bulkAddModalTitle">Tambah User dengan Excel</h5>
+              <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="file_excel" class="form-label">Upload File Excel</label>
+                <input class="form-control" name="file_excel" id="file_excel" type="file" accept=".xls,.xlsx" required>
+                <small class="text-muted">Format file harus .xls atau .xlsx. <a href="<?= base_url('public/assets/templates/template_bulk_add.xlsx') ?>" download>Download template Excel</a>.</small>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Batal</button>
+              <button class="btn btn-primary" type="submit">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
 
     <!-- Main page content-->
@@ -99,7 +125,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <th>No</th>
                 <th>Nomor Induk</th>
                 <th>Nama</th>
-                <th>Jabatan</th>
                 <th>Email</th>
                 <th>Aksi</th>
               </tr>
@@ -111,7 +136,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <td><?= $index ?></td>
                   <td><?= $user['nomor_induk'] ?> </td>
                   <td><?= $user['fullname'] ?> </td>
-                  <td><?= $user['status'] ?> </td>
                   <td><?= $user['email'] ?> </td>
                   <td>
                     <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
@@ -119,6 +143,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                       data-nomor_induk="<?= $user['nomor_induk'] ?>"
                       data-fullname="<?= $user['fullname'] ?>"
                       data-status="<?= $user['status'] ?>"
+                      data-role="<?= $user['role'] ?>"
                       data-email="<?= $user['email'] ?>">
                       <i data-feather="edit"></i>
                     </button>
@@ -176,7 +201,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <div class="modal-content">
             <form action="<?= base_url('user/add_admin') ?>" method="post" id="formGeneral">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Admin</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Tambah <?= $tipe ?></h5>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -192,6 +217,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <label for="email">Email</label>
                   <input class="form-control" name="email" id="email" type="email" placeholder="Masukkan email" required>
                 </div>
+                <input type="hidden" name="status" id="status" value="<?= $filter ?>">
+                <input type="hidden" name="role" id="role" value="<?= $tipe ?>">
                 <div class="mb-3">
                   <div class="row">
                     <div class="col-md-6">
@@ -238,13 +265,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
             const nomor_induk = $(this).data('nomor_induk');
             const email = $(this).data('email');
             const status = $(this).data('status');
+            const role = $(this).data('role');
 
             // Isi data ke dalam form modal edit
             $('#fullname').val(fullname);
             $('#nomor_induk').val(nomor_induk);
             $('#email').val(email);
             $('#status').val(status);
-
+            $('#role').val(role);
             $('#password').prop('required', false);
             $('#confirm-password').prop('required', false);
             $('#formGeneral').attr('action', '<?= base_url('user/edit_admin/') ?>' + id);
@@ -263,13 +291,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
               $('#fullname').val('');
               $('#nomor_induk').val('');
               $('#email').val('');
-              $('#status').val('');
               $('#formGeneral').attr('action', '<?= base_url('user/add_admin') ?>');
             }
 
             if (inputMode === 'unset') {
               inputMode = 'add';
-
             }
           });
 

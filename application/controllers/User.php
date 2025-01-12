@@ -16,8 +16,9 @@ class User extends MY_AdminController
 
   public function admin()
   {
+    $data['tipe'] = 'admin';
     $data['title'] = 'User';
-    $data['filter'] = 'admin';
+    $data['filter'] = '';
 
     $data['users'] = $this->ModelUser->getAllAdminUser();
     $this->load->view('templates/admin/header', $data);
@@ -27,7 +28,11 @@ class User extends MY_AdminController
 
   public function add_admin()
   {
-    $data['title'] = 'Tambah Admin';
+
+    $input = $this->input->post();
+    // var_dump($input);
+    // die;
+
     $this->form_validation->set_rules('nomor_induk', 'Nomor Induk', 'required|numeric|is_unique[user.nomor_induk]');
     $this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required');
     $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -37,18 +42,15 @@ class User extends MY_AdminController
 
     if ($this->form_validation->run() == false) {
       $this->session->set_flashdata('message', validation_errors());
-      redirect('user/admin');
+      backPage();
     } else {
-      $input = $this->input->post();
       unset($input['confirm-password']);
-
-      $input['role'] = 'admin';
       $input['password'] = password_hash($input['password'], PASSWORD_DEFAULT);
       $res = $this->ModelUser->add($input);
       $res ?
         $this->session->set_flashdata('message', 'Data admin berhasil ditambahkan') :
         $this->session->set_flashdata('message', 'Data admin gagal ditambahkan');
-      redirect('user/admin');
+      backPage();
     }
   }
 
@@ -70,14 +72,14 @@ class User extends MY_AdminController
 
     if ($this->form_validation->run() == false) {
       $this->session->set_flashdata('message', validation_errors());
-      redirect('user/admin');
+      backPage();
     }
 
     $res = $this->ModelUser->edit($id, $input);
     $res ?
       $this->session->set_flashdata('message', 'Data admin berhasil diubah') :
       $this->session->set_flashdata('message', 'Data admin gagal diubah');
-    redirect('user/admin');
+    backPage();
   }
 
   public function delete_admin($id)
@@ -86,11 +88,12 @@ class User extends MY_AdminController
     $res ?
       $this->session->set_flashdata('message', 'Data admin berhasil dihapus') :
       $this->session->set_flashdata('message', 'Data admin gagal dihapus');
-    redirect('user/admin');
+    backPage();
   }
 
   public function anggota($filter = null)
   {
+    $data['tipe'] = 'anggota';
     $data['title'] = 'Anggota';
     $data['filter'] = $filter;
 
@@ -98,5 +101,63 @@ class User extends MY_AdminController
     $this->load->view('templates/admin/header', $data);
     $this->load->view('admin/user/index');
     $this->load->view('templates/admin/footer');
+  }
+
+  public function add_bulk()
+  {
+    $this->load->library('upload');
+
+    // Konfigurasi upload file
+    $config['upload_path'] = './public/uploads/user/';
+    $config['allowed_types'] = 'xls|xlsx';
+    $config['max_size'] = 2048;
+    $this->upload->initialize($config);
+
+    if (!$this->upload->do_upload('file_excel')) {
+      $this->session->set_flashdata('message', $this->upload->display_errors());
+      backPage();
+    } else {
+      $file = $this->upload->data('full_path');
+
+      // Load PhpSpreadsheet
+      try {
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
+        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+
+        $insertData = [];
+        foreach ($sheetData as $key => $row) {
+          if ($key === 1) continue; // Skip header row
+
+          // Sesuaikan dengan struktur kolom template
+          $insertData[] = [
+            'nomor_induk' => $row['B'],
+            'fullname' => $row['C'],
+            'email' => $row['D'],
+            'password' => password_hash($row['E'], PASSWORD_DEFAULT),
+            'role' => $row['F'],
+            'status' => $row['G'],
+          ];
+        }
+
+        // Masukkan ke database
+        if (!empty($insertData)) {
+          $res = $this->ModelUser->add_batch($insertData);
+          $res ?
+            $this->session->set_flashdata('message', $res['inserted'] . ' user ditambahkan, ' . $res['skipped'] . ' data diskip') : $this->session->set_flashdata('message', 'Data anggota gagal ditambahkan');
+        } else {
+          $this->session->set_flashdata('message', 'Data kosong atau tidak valid.');
+        }
+      } catch (Exception $e) {
+        $this->session->set_flashdata('message', 'Error: ' . $e->getMessage());
+      }
+
+      // Hapus file setelah diproses
+      var_dump($file);
+      $handle = fopen($file, 'r');
+      fclose($handle);
+      unlink($file);
+
+      backPage();
+    }
   }
 }
