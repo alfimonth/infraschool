@@ -21,3 +21,10 @@ if (!function_exists('getTahunAjaran')) {
     return $CI->ModelUtama->getTahunAjaran();
   }
 }
+
+if (!function_exists('backPage')) {
+  function backPage()
+  {
+    redirect($_SERVER['HTTP_REFERER']);
+  }
+}
