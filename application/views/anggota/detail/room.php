@@ -30,7 +30,7 @@
           <div class="col-md-6">
             <h3 class="mb-3"><?= $room['jenis'] ?></h3>
 
-            <span class="badge bg-info rounded-pill px-3 py-2"> <?= $room['kategori'] ?></span>
+            <span class="badge bg-info rounded-pill px-3 py-2"><i class="fas fa-tags"></i> <?= $room['kategori'] ?></span>
 
             <!-- Ukuran Ruangan -->
             <p class="mb-2">
@@ -59,16 +59,62 @@
 
             <span class="badge bg-success"><i class="fas fa-check-circle"></i> <?= $room['baik'] ?> Baik</span>
             <span class="badge bg-danger"><i class="fas fa-times-circle"></i> <?= $room['rusak'] ?> Rusak</span>
-            <span class="badge bg-warning text-dark"><i class="fas fa-retweet"></i> <?= $room['baik'] ?> Sedang Dipinjam</span>
+            <span class="badge bg-warning text-dark"><i class="fas fa-retweet"></i> <?= $room['dipinjam'] ?> Sedang Dipinjam</span>
 
             </p>
 
             <!-- Tombol Pinjam -->
-            <?php if ($room['baik'] > 0): ?>
-              <a href="<?= base_url('pinjam/' . $room['id']) ?>" class="btn btn-primary rounded">
-                <i class="fas fa-list"></i>
-                Tambahkan ke list pinjam
-              </a>
+            <?php if ($room['baik'] - $room['dipinjam'] > 0): ?>
+              <form action="<?= base_url('pinjam/add_list/' . $room['id']) ?>" method="POST">
+
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <!-- Tombol - -->
+                  <span class="text-danger" onclick="decreaseQuantity()">
+                    <i class="fas fa-minus"></i>
+                  </span>
+                  <input type="hidden" value="Ruang" name="tipe">
+                  <!-- Input Jumlah -->
+                  <input
+                    type="number"
+                    name="jumlah"
+                    id="jumlah"
+                    value="1"
+                    min="1"
+                    max="<?= $room['baik'] - $room['dipinjam'] ?>"
+                    class="form-control text-center"
+                    style="width: 60px;"
+                    readonly>
+
+                  <!-- Tombol + -->
+                  <span class="text-success" onclick="increaseQuantity()">
+                    <i class="fas fa-plus"></i>
+                  </span>
+                </div>
+
+                <!-- Tombol Tambahkan -->
+                <button type="submit" class="btn btn-primary rounded">
+                  <i class="fas fa-list"></i> Tambahkan ke daftar pinjam
+                </button>
+              </form>
+
+              <script>
+                const maxQuantity = <?= $room['baik'] - $room['dipinjam'] ?>;
+                const jumlahInput = document.getElementById('jumlah');
+
+                function decreaseQuantity() {
+                  let currentValue = parseInt(jumlahInput.value, 10);
+                  if (currentValue > 1) {
+                    jumlahInput.value = currentValue - 1;
+                  }
+                }
+
+                function increaseQuantity() {
+                  let currentValue = parseInt(jumlahInput.value, 10);
+                  if (currentValue < maxQuantity) {
+                    jumlahInput.value = currentValue + 1;
+                  }
+                }
+              </script>
             <?php else: ?>
               <button class="btn btn-secondary rounded" disabled>
                 <i class="fas fa-ban"></i>

@@ -89,6 +89,84 @@
         </div>
       </footer>
 
+      <div class="container-xl px-4">
+        <?php if ($this->session->flashdata('message')): ?>
+          <div class="floating-alert alert alert-primary alert-icon position-fixed" role="alert">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center">
+                <div class="alert-icon-aside me-2">
+                  <i class="bi bi-info-circle"></i>
+                </div>
+                <div class="alert-icon-content">
+                  <i class="fas fa-info-circle"></i><?= ' ' . $this->session->flashdata('message'); ?>
+                </div>
+              </div>
+              <button class="btn-close ms-2" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <!-- Loading bar -->
+            <div class="loading-bar"></div>
+          </div>
+          <script>
+            document.addEventListener("DOMContentLoaded", function() {
+              const alertElement = document.querySelector('.floating-alert');
+              const loadingBar = alertElement.querySelector('.loading-bar');
+
+              // Jalankan loading bar
+              loadingBar.style.transition = "width 2s linear";
+              loadingBar.style.width = "100%";
+
+              // Tutup alert setelah 4 detik
+              setTimeout(function() {
+                alertElement.style.transition = "opacity 0.5s ease-out";
+                alertElement.style.opacity = 0;
+                setTimeout(() => alertElement.remove(), 500); // Hapus elemen setelah fade-out selesai
+              }, 2000);
+            });
+          </script>
+          <style>
+            /* Styling untuk alert melayang */
+            .floating-alert {
+              bottom: 20px;
+              right: 20px;
+              z-index: 1050;
+              min-width: 300px;
+              max-width: 400px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+              animation: slide-in 0.3s ease-out;
+              position: fixed;
+              background-color: #e7f1ff;
+              color: #084298;
+              border: 1px solid #b6d4fe;
+              border-radius: 0.375rem;
+              padding: 1rem;
+            }
+
+            /* Loading bar */
+            .loading-bar {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              height: 4px;
+              width: 0;
+              background-color: #0d6efd;
+              /* Warna biru Bootstrap */
+            }
+
+            /* Animasi slide-in */
+            @keyframes slide-in {
+              from {
+                transform: translateX(100%);
+              }
+
+              to {
+                transform: translateX(0);
+              }
+            }
+          </style>
+        <?php endif; ?>
+      </div>
+
+
       <!-- Bootstrap core JS-->
       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
       <script src="<?= base_url('vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js') ?>"></script>

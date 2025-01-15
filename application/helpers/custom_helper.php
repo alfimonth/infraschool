@@ -35,3 +35,15 @@ if (!function_exists('dmy')) {
     return date('d-m-Y', strtotime($time));
   }
 }
+if (!function_exists('dd')) {
+
+  function dd($value)
+  {
+    echo "<pre>";
+    var_dump($value);
+    echo "</pre>";
+    die();
+
+    // Kembalikan hasil akhir
+  }
+}

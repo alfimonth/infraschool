@@ -55,11 +55,11 @@ class Auth extends CI_Controller
           redirect('home');
         }
       } else {
-        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Password salah!!</div>');
+        $this->session->set_flashdata('message', 'Password salah!');
         redirect('auth/login');
       }
     } else {
-      $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Nomor induk terdaftar!!</div>');
+      $this->session->set_flashdata('message', 'Nomor Induk tidak terdaftar!');
       redirect('auth/login');
     }
   }
@@ -67,7 +67,7 @@ class Auth extends CI_Controller
   public function logout()
   {
     $this->session->sess_destroy();
-    // $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Anda telah logout!!</div>');
+    $this->session->set_flashdata('message', 'Anda telah logout!');
     redirect('auth/login');
   }
 }

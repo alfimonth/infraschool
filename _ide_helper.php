@@ -24,6 +24,7 @@
  * @property ModelUser $ModelUser
  * @property ModelSarpras $ModelSarpras
  * @property ModelTransaksi $ModelTransaksi
+ * @property ModelPinjam $ModelPinjam
  */
 
 class CI_Controller {}

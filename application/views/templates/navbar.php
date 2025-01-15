@@ -35,8 +35,8 @@
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">Ruangan</a></li>
-        <li class="nav-item"><a class="nav-link" href="post.html">Peralatan</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>#rooms">Ruangan</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>#tools">Peralatan</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 
         <?php if ($this->session->userdata('nomor_induk')) : ?>
@@ -57,12 +57,12 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li>
-                  <a class="dropdown-item" href="<?= base_url('user/list_pinjam') ?>">
-                    <i class="fas fa-list me-2"></i> List Pinjam
+                  <a class="dropdown-item" href="<?= base_url('pinjam') ?>">
+                    <i class="fas fa-list me-2"></i> Daftar Pinjam
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="<?= base_url('user/riwayat') ?>">
+                  <a class="dropdown-item" href="<?= base_url('pinjam/riwayat') ?>">
                     <i class="fas fa-history me-2"></i> Riwayat
                   </a>
                 </li>
