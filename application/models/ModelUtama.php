@@ -4,8 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelUtama extends CI_Model
 {
-    public function getData()
+    public function getData($filter = null)
     {
+        
         return $this->db->get('general_info')->result_array();
     }
 

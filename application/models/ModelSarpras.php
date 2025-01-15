@@ -49,8 +49,12 @@ class ModelSarpras extends CI_Model
   {
     return $this->db->insert('ruang', $data);
   }
-  public function getRooms()
+  public function getRooms($filter = null)
   {
+    if ($filter === "home") {
+      $this->db->order_by('id', 'desc');
+      $this->db->where('baik >', 0);
+    }
     return $this->db->get('ruang')->result_array();
   }
 
@@ -79,8 +83,12 @@ class ModelSarpras extends CI_Model
     return $this->db->insert('peralatan', $data);
   }
 
-  public function getTools()
+  public function getTools($filter = null)
   {
+    if ($filter === "home") {
+      $this->db->order_by('id', 'desc');
+      $this->db->where('baik >', 0);
+    }
     return $this->db->get('peralatan')->result_array();
   }
 

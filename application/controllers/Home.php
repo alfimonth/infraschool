@@ -12,13 +12,13 @@ class Home extends CI_Controller
 		$this->load->model('ModelSarpras');
 	}
 
-	
+
 	public function index()
 	{
 		$data['title'] = 'Home';
 		$data['general_info'] = $this->ModelUtama->getData();
-		$data['rooms'] = $this->ModelSarpras->getRooms();
-		$data['tools'] = $this->ModelSarpras->getTools();
+		$data['rooms'] = $this->ModelSarpras->getRooms('home');
+		$data['tools'] = $this->ModelSarpras->getTools('home');
 
 
 		$this->load->view('templates/main_header', $data);
@@ -26,7 +26,5 @@ class Home extends CI_Controller
 		$this->load->view('templates/main_footer');
 	}
 
-	public function about(){
-
-	}
+	public function about() {}
 }

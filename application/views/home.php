@@ -17,26 +17,40 @@
         </script>
       </section>
       <section>
-        <h1>Ruang</h1>
-        <div id="rooms" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-8 g-4">
+        <h1>Ruangan</h1>
+        <div id="rooms" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-3">
           <?php foreach ($rooms as $room): ?>
-            <div class="col-4 col-lg-2 d-flex flex-column align-items-center justify-content-start gap-2">
-              <img class="w-100" src="<?= base_url('public/uploads/sarpras/ruang/' . $room['image']) ?>" alt="">
-              <span class="text-center"><?= $room['jenis'] ?></span>
+            <div class="col">
+              <div class="card h-100 shadow-sm border-0">
+                <!-- Gambar Ruangan -->
+                <div class="position-relative">
+                  <div class="bg-dark bg-opacity-50 text-white px-3 py-1">
+                    <i class="fas fa-door-open"></i> <?= $room['baik'] ?> - <?= $room['jenis'] ?>
+                  </div>
+                  <img class="card-img-top" src="<?= base_url('public/uploads/sarpras/ruang/' . $room['image']) ?>" alt="<?= $room['jenis'] ?>">
+                </div>
+              </div>
             </div>
           <?php endforeach; ?>
         </div>
+
         <div class="clearfix"><a class="btn btn-primary rounded" href="#!">Selengkapnya →</a></div>
       </section>
       <section class="my-5">
         <h1>Peralatan</h1>
-        <div id="rooms" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-8 g-4">
+        <div id="tools" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-3">
           <?php foreach ($tools as $tool): ?>
-            <div class="col-4 col-lg-2 d-flex flex-column align-items-center justify-content-start gap-2">
-              <img class="w-100" src="<?= base_url('public/uploads/sarpras/peralatan/' . $tool['image']) ?>" alt="">
-              <span class="text-center"><?= $tool['jenis'] ?></span>
+            <div class="col">
+              <div class="card h-100 shadow-sm border-0">
+                <!-- Gambar Ruangan -->
+                <div class="position-relative">
+                  <div class="bg-dark bg-opacity-50 text-white px-3 py-1">
+                    <i class="fas fa-door-open"></i> <?= $tool['baik'] ?> - <?= $tool['jenis'] ?>
+                  </div>
+                  <img class="card-img-top" src="<?= base_url('public/uploads/sarpras/ruang/' . $room['image']) ?>" alt="<?= $room['jenis'] ?>">
+                </div>
+              </div>
             </div>
-
           <?php endforeach; ?>
         </div>
 

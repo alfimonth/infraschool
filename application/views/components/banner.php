@@ -7,7 +7,7 @@
         <div class="site-heading">
           <h1>SARANA PRASARANA</h1>
           <h1>SMK AL FATAH BANJARNEGARA</h1>
-          <h2 class=" subheading">Tahun Pelajaran 2024/2025</h2>
+          <h2 class=" subheading">Tahun Pelajaran <?= getTahunAjaran() ?></h2>
         </div>
       </div>
     </div>
