@@ -66,7 +66,7 @@
           <!-- Sidenav Menu Heading (Core)-->
           <br>
           <!-- Sidenav Accordion (Dashboard)-->
-          <a class="nav-link <?= uri_string() == 'admin' ? 'active' : "" ?>" href="<?= base_url('admin'); ?>">
+          <a class="nav-link <?= uri_string() == 'admin/dashboard' ? 'active' : "" ?>" href="<?= base_url('admin'); ?>">
             <div class="nav-link-icon"><i data-feather="activity"></i></div>
             Dashboards
           </a>
@@ -75,6 +75,10 @@
           <a class="nav-link <?= strpos(uri_string(), 'general') !== false ? 'active' : "" ?>" href="<?= base_url('admin/general'); ?>">
             <div class="nav-link-icon"><i data-feather="globe"></i></div>
             General
+          </a>
+          <a class="nav-link <?= strpos(uri_string(), 'tahun_ajaran') !== false ? 'active' : "" ?>" href="<?= base_url('admin/tahun_ajaran'); ?>">
+            <div class="nav-link-icon"><i data-feather="calendar"></i></div>
+            Tahun Ajaran
           </a>
           <!-- Sidenav Accordion (Pages)-->
 
@@ -184,7 +188,7 @@
           <!-- Sidenav Link (Tables)-->
           <a class="nav-link" href="tables.html">
             <div class="nav-link-icon"><i data-feather="printer"></i></div>
-            Export
+            Laporan Tahunan
           </a>
         </div>
       </div>

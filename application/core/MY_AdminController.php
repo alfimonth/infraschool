@@ -7,7 +7,7 @@ class MY_AdminController extends CI_Controller
   {
     parent::__construct();
     $this->authenticate();
-    $this->tahun_ajaran();
+    $this->check_tahun_ajaran();
   }
 
   protected function authenticate()
@@ -17,11 +17,18 @@ class MY_AdminController extends CI_Controller
     }
   }
 
-  protected function tahun_ajaran()
+  protected function check_tahun_ajaran()
   {
+
     $tahun_ajaran = $this->ModelUtama->getTahunAjaran();
-    if (!$tahun_ajaran) {
-      redirect('admin/general');
+    if (
+      !$tahun_ajaran
+      && uri_string() !== 'admin/tahun_ajaran'
+      && uri_string() !== 'admin/add_tahun_ajaran'
+      && strpos(uri_string(), 'admin/edit_tahun_ajaran') === false
+    ) {
+      $this->session->set_flashdata('message', 'Harus ada tahun ajaran aktif untuk mengakses fungsi admin');
+      redirect('admin/tahun_ajaran');
     }
   }
 };

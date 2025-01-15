@@ -45,4 +45,25 @@ class ModelUtama extends CI_Model
             return null;
         }
     }
+
+    public function getAllTahunAjaran()
+    {
+        return $this->db->get('tahun_ajaran')->result_array();
+    }
+
+    public function addTahunAjaran($data)
+    {
+        return $this->db->insert('tahun_ajaran', $data);
+    }
+
+    public function editTahunAjaran($id, $data)
+    {
+        $this->db->where('id', $id);
+        return $this->db->update('tahun_ajaran', $data);
+    }
+
+    public function deleteTahunAjaran($id)
+    {
+        return $this->db->where('id', $id)->delete('tahun_ajaran');
+    }
 }
