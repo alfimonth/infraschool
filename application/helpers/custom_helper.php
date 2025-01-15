@@ -28,3 +28,10 @@ if (!function_exists('backPage')) {
     redirect($_SERVER['HTTP_REFERER']);
   }
 }
+
+if (!function_exists('dmy')) {
+  function dmy($time)
+  {
+    return date('d-m-Y', strtotime($time));
+  }
+}
