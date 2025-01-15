@@ -43,7 +43,7 @@
         <h1>Peralatan</h1>
         <div id="tools" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-3">
           <?php foreach ($tools as $tool): ?>
-            <a href="<?= base_url('detail/' . $tool['id']) ?>">
+            <a href="<?= base_url('detail/peralatan/' . $tool['id']) ?>">
               <div class="col">
                 <div class="card h-100 shadow-sm border-0">
                   <!-- Gambar Ruangan -->

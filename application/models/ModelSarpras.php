@@ -58,6 +58,16 @@ class ModelSarpras extends CI_Model
     return $this->db->get('ruang')->result_array();
   }
 
+  public function getRoom($id)
+  {
+    $this->db->select('ruang.*, kategori.nama as kategori');
+    $this->db->from('ruang');
+    $this->db->join('kategori', 'kategori.id = ruang.id_kategori', 'left'); // Join tabel kategori
+    $this->db->where('ruang.id', $id);
+    return $this->db->get()->row_array();
+  }
+
+
   public function editRoom($data, $id)
   {
 
@@ -91,6 +101,22 @@ class ModelSarpras extends CI_Model
     }
     return $this->db->get('peralatan')->result_array();
   }
+
+  public function getTool($id)
+  {
+    $this->db->select('
+        peralatan.*, 
+        kategori.nama as kategori, 
+        subkategori.nama as subkategori
+    ');
+    $this->db->from('peralatan');
+    $this->db->join('kategori as kategori', 'kategori.id = peralatan.id_kategori', 'left'); // Join kategori
+    $this->db->join('kategori as subkategori', 'subkategori.id = peralatan.id_subkategori', 'left'); // Join sub_kategori
+    $this->db->where('peralatan.id', $id);
+    return $this->db->get()->row_array();
+  }
+
+
 
   public function editTool($id, $data)
   {

@@ -13,7 +13,7 @@ class MY_AdminController extends CI_Controller
   protected function authenticate()
   {
     if ($this->session->userdata('role') !== 'admin') {
-      redirect('auth/login');
+      redirect('home');
     }
   }
 

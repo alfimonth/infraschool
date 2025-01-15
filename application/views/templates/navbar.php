@@ -43,11 +43,43 @@
           <?php if (getProfile('role') === 'admin') : ?>
             <li class="nav-item"><a class="nav-link bg-primary text-white rounded px-3" href="<?= base_url('admin') ?>">Admin<i class="fas fa-user ms-1"></i></a></li>
           <?php else : ?>
-            <li class="nav-item">
-              <a class="nav-link bg-primary text-white rounded px-3" href="<?= base_url('User') ?>">
+            <!-- Dropdown untuk Anggota -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle bg-primary text-white rounded px-3"
+                href="#"
+                id="dropdownMenuButton"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
                 <?= getProfile('fullname') ?>
                 <i class="fas fa-user ms-1"></i>
               </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <a class="dropdown-item" href="<?= base_url('user/list_pinjam') ?>">
+                    <i class="fas fa-list me-2"></i> List Pinjam
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="<?= base_url('user/riwayat') ?>">
+                    <i class="fas fa-history me-2"></i> Riwayat
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="<?= base_url('user/change_password') ?>">
+                    <i class="fas fa-key me-2"></i> Ganti Password
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item text-danger" href="<?= base_url('auth/logout') ?>">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                  </a>
+                </li>
+              </ul>
             </li>
           <?php endif; ?>
         <?php else : ?>

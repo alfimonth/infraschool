@@ -30,6 +30,8 @@
           <div class="col-md-6">
             <h3 class="mb-3"><?= $room['jenis'] ?></h3>
 
+            <span class="badge bg-info rounded-pill px-3 py-2"> <?= $room['kategori'] ?></span>
+
             <!-- Ukuran Ruangan -->
             <p class="mb-2">
               <strong>Ukuran:</strong>
@@ -64,7 +66,7 @@
             <!-- Tombol Pinjam -->
             <?php if ($room['baik'] > 0): ?>
               <a href="<?= base_url('pinjam/' . $room['id']) ?>" class="btn btn-primary rounded">
-                <i class="fas fa-clipboard"></i>
+                <i class="fas fa-list"></i>
                 Tambahkan ke list pinjam
               </a>
             <?php else: ?>
