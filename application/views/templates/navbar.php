@@ -12,6 +12,7 @@
         align-items: center;
         gap: 0.5rem;
       }
+
       .logo {
         width: 1.5rem;
         height: 1.5rem;
@@ -32,17 +33,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <?php if (getProfile('role') === 'admin') : ?>
-          <li class="nav-item"><a class="nav-link" href="<?= base_url('admin') ?>">Admin</a></li>
-        <?php endif; ?>
+
         <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="about.html">Ruangan</a></li>
         <li class="nav-item"><a class="nav-link" href="post.html">Peralatan</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+
         <?php if ($this->session->userdata('nomor_induk')) : ?>
-          <div class="dropdown">
-            <img src="<?= base_url('/public/assets/img/post-sample-image.jpg') ?>" class="img-profile rounded-circle" style="width: 30px ; height: 30px;" alt="">
-          </div>
+          <?php if (getProfile('role') === 'admin') : ?>
+            <li class="nav-item"><a class="nav-link bg-primary text-white rounded px-3" href="<?= base_url('admin') ?>">Admin<i class="fas fa-user ms-1"></i></a></li>
+          <?php else : ?>
+            <li class="nav-item">
+              <a class="nav-link bg-primary text-white rounded px-3" href="<?= base_url('User') ?>">
+                <?= getProfile('fullname') ?>
+                <i class="fas fa-user ms-1"></i>
+              </a>
+            </li>
+          <?php endif; ?>
         <?php else : ?>
           <li class="nav-item"><a class="nav-link bg-primary text-white rounded px-3" href="<?= base_url('auth/login') ?>">Login</a></li>
         <?php endif; ?>
