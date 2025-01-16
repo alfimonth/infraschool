@@ -29,10 +29,6 @@
           </div>
         </h6>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#!">
-          <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
-          Account
-        </a>
         <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>" method="post">
           <div class="dropdown-item-icon"><i data-feather="log-out"></i></div>
           Logout
@@ -150,33 +146,23 @@
             <div class="nav-link-icon"><i data-feather="layout"></i></div>
             Log
           </a>
-          <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseComponents" aria-expanded="false" aria-controls="collapseComponents">
+          <a class="nav-link <?= strpos(uri_string(), 'transaksi/peminjaman') !== false ? 'active collapsed' : "" ?>" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseComponents" aria-expanded="false" aria-controls="collapseComponents">
             <div class="nav-link-icon"><i data-feather="repeat"></i></div>
             Peminjaman
+            <span class="badge bg-primary-soft text-primary ms-auto"><?= countAjuan() > 0 ? countAjuan() . " ajuan" : "" ?></span>
             <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+
           </a>
-          <div class="collapse" id="collapseComponents" data-bs-parent="#accordionSidenav">
+          <div class="collapse <?= strpos(uri_string(), 'transaksi/peminjaman') !== false ? 'show' : "" ?>" id="collapseComponents" data-bs-parent="#accordionSidenav">
             <nav class="sidenav-menu-nested nav">
-              <a class="nav-link" href="alerts.html">Alerts</a>
-              <a class="nav-link" href="avatars.html">Avatars</a>
-              <a class="nav-link" href="badges.html">Badges</a>
-              <a class="nav-link" href="buttons.html">Buttons</a>
-              <a class="nav-link" href="cards.html">
-                Cards
-                <span class="badge bg-primary-soft text-primary ms-auto">Updated</span>
+
+              <a class="nav-link <?= uri_string() == 'transaksi/peminjaman/diajukan' ? 'active' : "" ?>" href="<?= base_url('transaksi/peminjaman/diajukan') ?>">
+                Pengajuan
+
               </a>
-              <a class="nav-link" href="dropdowns.html">Dropdowns</a>
-              <a class="nav-link" href="forms.html">
-                Forms
-                <span class="badge bg-primary-soft text-primary ms-auto">Updated</span>
-              </a>
-              <a class="nav-link" href="modals.html">Modals</a>
-              <a class="nav-link" href="navigation.html">Navigation</a>
-              <a class="nav-link" href="progress.html">Progress</a>
-              <a class="nav-link" href="step.html">Step</a>
-              <a class="nav-link" href="timeline.html">Timeline</a>
-              <a class="nav-link" href="toasts.html">Toasts</a>
-              <a class="nav-link" href="tooltips.html">Tooltips</a>
+              <a class="nav-link <?= uri_string() == 'transaksi/peminjaman/dipinjam' ? 'active' : "" ?>" href="<?= base_url('transaksi/peminjaman/dipinjam') ?>">Dalam Peminjaman</a>
+              <a class="nav-link <?= uri_string() == 'transaksi/peminjaman/dikembalikan' ? 'active' : "" ?>" href="<?= base_url('transaksi/peminjaman/dikembalikan') ?>">Selesai</a>
+              <a class="nav-link <?= uri_string() == 'transaksi/peminjaman/ditolak' ? 'active' : "" ?>" href="<?= base_url('transaksi/peminjaman/ditolak') ?>">Ditolak</a>
             </nav>
           </div>
           <!-- Sidenav Accordion (Components)-->

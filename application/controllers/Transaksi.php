@@ -8,6 +8,7 @@ class Transaksi extends MY_AdminController
     parent::__construct();
     $this->load->model('ModelTransaksi');
     $this->load->model('ModelSarpras');
+    $this->load->model('ModelPinjam');
   }
 
   public function index()
@@ -65,5 +66,43 @@ class Transaksi extends MY_AdminController
       $this->session->set_flashdata('message', 'Log gagal ditambahkan!');
 
     redirect('transaksi/log');
+  }
+
+  public function peminjaman($tipe)
+  {
+    $data['title'] = $tipe;
+    $data['pinjam'] = $this->ModelPinjam->getAllPinjam($tipe);
+    $this->load->view('templates/admin/header', $data);
+    $this->load->view('admin/transaksi/peminjaman');
+    $this->load->view('templates/admin/footer');
+  }
+
+  public function approve($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->update('pinjam', ['status' => 'dipinjam']);
+
+    $this->session->set_flashdata('message', 'Peminjaman berhasil disetujui.');
+    backPage();
+  }
+
+  public function kembali($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->update('pinjam', ['status' => 'dikembalikan']);
+
+    $this->session->set_flashdata('message', 'Peminjaman selesai.');
+    backPage();
+  }
+
+
+
+  public function reject($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->update('pinjam', ['status' => 'ditolak']);
+
+    $this->session->set_flashdata('message', 'Peminjaman berhasil ditolak.');
+    backPage();
   }
 }

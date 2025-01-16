@@ -45,8 +45,10 @@
 
             </p>
 
+
+
             <!-- Tombol Pinjam -->
-            <?php if ($tool['baik'] - $tool['dipinjam'] > 0): ?>
+            <?php if ($tool['baik'] - $tool['dipinjam'] > 0 && getProfile('role' === 'anggota')): ?>
               <form action="<?= base_url('pinjam/add_list/' . $tool['id']) ?>" method="POST">
 
                 <div class="d-flex align-items-center gap-2 mb-3">

@@ -136,4 +136,54 @@ class ModelPinjam extends CI_Model
     }
     return $result;
   }
+
+
+  public function getAllPinjam($filter = null)
+  {
+    $this->db->select('
+        pinjam.id AS id_pinjam,
+        pinjam.status,
+        pinjam.tgl_pinjam,
+        pinjam.tgl_kembali,
+        pinjam.catatan,
+        user.id AS user_id,
+        user.fullname AS nama_user,
+        user.email AS email_user
+    '); // Memilih kolom dari tabel `pinjam` dan `user`
+    $this->db->from('pinjam');
+    $this->db->join('user', 'user.id = pinjam.id_user', 'left'); // Join ke tabel user
+    if ($filter) {
+      $this->db->where('pinjam.status', $filter);
+    }
+    $this->db->order_by('pinjam.id', 'DESC'); // Urutkan berdasarkan ID pinjam secara DESC
+    $query = $this->db->get();
+
+    $result = [];
+    foreach ($query->result_array() as $row) {
+      // Gunakan fungsi getlist untuk mendapatkan daftar detail_pinjam berdasarkan id_pinjam
+      $list = $this->getlist($row['id_pinjam']);
+
+      // Masukkan ke dalam hasil dengan format yang diminta
+      $result[] = [
+        'id_pinjam'       => $row['id_pinjam'],
+        'status'          => $row['status'],
+        'tgl_pinjam'      => $row['tgl_pinjam'],
+        'tgl_kembali'     => $row['tgl_kembali'],
+        'catatan'         => $row['catatan'],
+        'user' => [
+          'id'    => $row['user_id'],
+          'nama'  => $row['nama_user'],
+          'email' => $row['email_user'],
+        ],
+        'list'            => $list,
+      ];
+    }
+    return $result;
+  }
+
+  public function countPengajuan()
+  {
+    $this->db->where('status', 'diajukan');
+    return $this->db->count_all_results('pinjam');
+  }
 }

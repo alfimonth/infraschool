@@ -35,6 +35,15 @@ if (!function_exists('dmy')) {
     return date('d-m-Y', strtotime($time));
   }
 }
+
+if (!function_exists('countAjuan')) {
+  function countAjuan()
+  {
+    $CI = &get_instance(); // Mendapatkan instance CodeIgniter
+    $CI->load->model('ModelPinjam');
+    return $CI->ModelPinjam->countPengajuan();
+  }
+}
 if (!function_exists('dd')) {
 
   function dd($value)
