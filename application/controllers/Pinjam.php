@@ -82,17 +82,28 @@ class Pinjam extends MY_AnggotaController
 
   public function pengajuan($id)
   {
+    //Matikan jika tidak ada batas pengajun
     if ($this->ModelPinjam->cekPengajuan()) {
       $this->session->set_flashdata('error', 'Pengajuan sebelumnya belum selesai!');
       redirect('pinjam/riwayat');
     }
-    $res = $this->ModelPinjam->ajukan($id);
+
+    $input = $this->input->post(null, true);
+    $data = [
+      'status' => 'diajukan',
+      'tgl_pinjam' => date('Y-m-d'),
+      'tgl_kembali' => $input['tgl_kembali'],
+      'catatan' => $input['catatan']
+    ];
+
+    $res = $this->ModelPinjam->ajukan($id, $data);
     $res ?
       $this->session->set_flashdata('success', 'Pengajuan berhasil dikirim') :
       $this->session->set_flashdata('error', 'Pengajuan gagal dikirim');
 
     redirect('pinjam/riwayat');
   }
+
 
   public function riwayat()
   {

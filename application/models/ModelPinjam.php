@@ -67,13 +67,10 @@ class ModelPinjam extends CI_Model
     return $this->db->delete('detail_pinjam');
   }
 
-  public function ajukan($id)
+  public function ajukan($id, $data)
   {
     // 1. Update status pinjaman menjadi "diajukan" dan set tanggal pinjam
-    $data = [
-      'status' => 'diajukan',
-      'tgl_pinjam' => date('Y-m-d')
-    ];
+
     $this->db->where('id', $id);
     $this->db->update('pinjam', $data);
 
@@ -115,11 +112,11 @@ class ModelPinjam extends CI_Model
 
   public function getHistory()
   {
-    $this->db->select('id, status, tgl_pinjam, tgl_kembali');
+    $this->db->select('id, status, tgl_pinjam, tgl_kembali, catatan',);
     $this->db->from('pinjam');
     $this->db->where('id_user', getProfile('id')); // Filter berdasarkan ID pengguna
     $this->db->where('status !=', 'draft'); // Status tidak sama dengan draft
-    $this->db->order_by('tgl_pinjam', 'DESC'); // Urutkan berdasarkan tanggal pinjam secara desc
+    $this->db->order_by('id', 'DESC'); // Urutkan berdasarkan tanggal pinjam secara desc
     $query = $this->db->get();
 
     $result = [];
@@ -133,6 +130,7 @@ class ModelPinjam extends CI_Model
         'status'          => $row['status'],
         'tgl_pinjam'      => $row['tgl_pinjam'],
         'tgl_kembali' => $row['tgl_kembali'],
+        'catatan' => $row['catatan'],
         'list'            => $list,
       ];
     }

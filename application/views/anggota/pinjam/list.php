@@ -95,6 +95,19 @@
               </tbody>
             </table>
 
+            <div class="mb-3">
+              <label for="tgl_kembali" class="form-label fw-bold fs-6">Tanggal Pengembalian</label>
+              <input type="date" name="tgl_kembali" class="form-control" placeholder="Catatan" id="tgl_kembali" min="<?= date('Y-m-d') ?>" required>
+            </div>
+            <div class="mb-3">
+              <label for="catatan" class="form-label fw-bold fs-6">Catatan</label>
+              <input type="text" name="catatan" class="form-control" placeholder="contoh: tujuan peminjaman" id="catatan">
+            </div>
+            <div class="alert alert-warning mt-2" role="alert">
+              <i class="fas fa-info-circle"></i> Hanya isi field tanggal pengemabalian dan catatan jika sudah yakin dengan jumlah sarpras yang dipinjam.
+            </div>
+
+
             <!-- Tombol Pinjam -->
             <div class="d-flex justify-content-end mt-3">
               <a href="<?= base_url() ?>#rooms" class="btn btn-warning rounded mr-3">

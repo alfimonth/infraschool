@@ -44,7 +44,7 @@
             <div class="card mb-4">
               <div class="card-header bg-primary text-white">
                 <div class="d-flex justify-content-between align-items-center">
-                  <h5 class="mb-0">Peminjaman #<?= $pinjam['id_pinjam']; ?></h5>
+                  <h5 class="mb-0">Peminjaman #<?= $pinjam['id_pinjam'] . ' ' . $pinjam['catatan'];  ?></h5>
                   <!-- Menampilkan Status dengan Warna Berbeda -->
                   <span class="badge rounded-pill px-3 py-2
                         <?php switch ($pinjam['status']) {
@@ -84,12 +84,7 @@
                   </div>
 
                 </div>
-                <?php if ($pinjam['status'] == 'dipinjam') : ?>
 
-                  <div class="alert alert-info mt-2" role="alert">
-                    <i class="fas fa-info-circle"></i> Segera ambil sarpras yang telah dipinjam jika belum diambil, dan kembalikan tepat waktu.
-                  </div>
-                <?php endif; ?>
               </div>
 
 
@@ -118,6 +113,16 @@
                     <?php endforeach; ?>
                   </tbody>
                 </table>
+                <?php if ($pinjam['status'] == 'dipinjam') : ?>
+                  <div class="alert alert-info mt-2" role="alert">
+                    <i class="fas fa-info-circle"></i> Segera ambil sarpras yang telah dipinjam jika belum diambil, dan kembalikan tepat waktu.
+                  </div>
+                <?php endif; ?>
+                <?php if ($pinjam['status'] == 'diajukan') : ?>
+                  <div class="alert alert-info mt-2" role="alert">
+                    <i class="fas fa-info-circle"></i> Sedang menunggu konfirmasi admin. hubungi admin jika perlu.
+                  </div>
+                <?php endif; ?>
               </div>
             </div>
           <?php endforeach; ?>
