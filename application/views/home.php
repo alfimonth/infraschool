@@ -5,17 +5,52 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
-      <section class="row row-cols-1 row-cols-sm-2 row-cols-md-8 g-4 mb-5">
+      <section class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 mb-5">
         <?php foreach ($general_info as $info): ?>
-          <div class="col-4 col-lg-2 d-flex flex-column align-items-center justify-content-start gap-2">
-            <i data-feather="<?= $info['ikon'] ?>"></i>
-            <span class="text-center"><?= $info['value'] . ' ' . $info['satuan'] ?></span>
+          <div class="col d-flex flex-column align-items-center justify-content-start gap-2 text-center">
+            <!-- Ikon -->
+            <div class="icon-wrapper d-flex align-items-center justify-content-center rounded-circle bg-light p-3 shadow-sm" style="width: 60px; height: 60px;">
+              <i data-feather="<?= $info['ikon'] ?>" class="icon-size" style="width: 24px; height: 24px;"></i>
+            </div>
+
+            <!-- Teks -->
+            <div class="text-truncate fw-bold" style="max-width: 120px;" title="<?= $info['jenis'] ?>">
+              <?= $info['jenis'] ?>
+            </div>
+            <div class="fw-light">
+              <?= $info['value'] . ' ' . $info['satuan'] ?>
+            </div>
           </div>
         <?php endforeach; ?>
         <script>
           feather.replace();
         </script>
       </section>
+
+      <!-- Styling -->
+      <style>
+        .icon-size {
+          color: #007bff;
+          /* Warna ikon (biru Bootstrap) */
+        }
+
+        .icon-wrapper {
+          transition: all 0.3s ease-in-out;
+        }
+
+        .icon-wrapper:hover {
+          background-color: #007bff;
+          /* Warna hover */
+          color: #ffffff;
+          /* Warna ikon pada hover */
+        }
+
+        .text-truncate {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      </style>
       <section class="my-5" id="rooms">
         <h1 class="text-primary fw-bold fs-3">Ruangan</h1>
         <div id="rooms" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-3">

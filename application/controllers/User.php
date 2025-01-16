@@ -37,14 +37,14 @@ class User extends MY_AdminController
     $this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required');
     $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
     $this->form_validation->set_rules('password', 'Password', 'required');
-    $this->form_validation->set_rules('confirm-password', 'Konfirmasi Password', 'required|matches[password]');
+    $this->form_validation->set_rules('confirm_password', 'Konfirmasi Password', 'required|matches[password]');
 
 
     if ($this->form_validation->run() == false) {
       $this->session->set_flashdata('message', validation_errors());
       backPage();
     } else {
-      unset($input['confirm-password']);
+      unset($input['confirm_password']);
       $input['password'] = password_hash($input['password'], PASSWORD_DEFAULT);
       $res = $this->ModelUser->add($input);
       $res ?
@@ -56,31 +56,43 @@ class User extends MY_AdminController
 
   public function edit_admin($id)
   {
-    $this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required');
-    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');;
-
-
-
     $input = $this->input->post();
-    if (isset($input['password']) && $input['password'] != '') {
-      $this->form_validation->set_rules('password', 'Password', 'matches[confirm-password]');
-      $input['password'] = password_hash($input['password'], PASSWORD_DEFAULT);
-    } else {
-      unset($input['password']);
-      unset($input['confirm-password']);
-    }
+    // Validasi data umum
+    $this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required');
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 
+
+    // Jalankan validasi
     if ($this->form_validation->run() == false) {
       $this->session->set_flashdata('message', validation_errors());
       backPage();
+      return; // Pastikan fungsi berhenti jika validasi gagal
     }
 
+    // Jika password diisi, hash password dan masukkan ke array data
+    if (!empty($input['password'])) {
+      $input['password'] = password_hash($input['password'], PASSWORD_DEFAULT);
+    } else {
+      // Jika password tidak diisi, hapus dari array input
+      unset($input['password']);
+    }
+
+    // Hapus confirm_password dari input
+    unset($input['confirm_password']);
+
+    // Update data di database
     $res = $this->ModelUser->edit($id, $input);
-    $res ?
-      $this->session->set_flashdata('message', 'Data admin berhasil diubah') :
+
+    // Flash message berdasarkan hasil update
+    if ($res) {
+      $this->session->set_flashdata('message', 'Data admin berhasil diubah');
+    } else {
       $this->session->set_flashdata('message', 'Data admin gagal diubah');
+    }
+
     backPage();
   }
+
 
   public function delete_admin($id)
   {

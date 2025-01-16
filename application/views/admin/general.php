@@ -227,6 +227,7 @@ include 'icon.php';
           // Ketika tombol edit diklik
           $('.edit').on('click', function() {
             inputMode = 'edit';
+            $('#exampleModalCenterTitle').text('Edit Informasi General');
             const id = $(this).data('id');
             const jenis = $(this).data('jenis');
             const value = $(this).data('value');
@@ -248,6 +249,7 @@ include 'icon.php';
           $('#tambahData').on('click', function() {
             if (inputMode === 'edit') {
               inputMode = 'add';
+              $('#exampleModalCenterTitle').text('Tambah Informasi General');
               $('#jenis').val('');
               $('#value').val('');
               $('#satuan').val('');

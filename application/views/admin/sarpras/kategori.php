@@ -303,6 +303,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           // Ketika tombol edit diklik
           $('.edit').on('click', function() {
             inputMode = 'edit';
+            $('#exampleModalCenterTitle').text('Edit Kategori');
             const id = $(this).data('id');
             const nama = $(this).data('nama');
             const tipe = $(this).data('tipe');
@@ -320,6 +321,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           $('#tambahData').on('click', function() {
             if (inputMode === 'edit') {
               inputMode = 'add';
+              $('#exampleModalCenterTitle').text('Tambah Kategori');
               $('#nama').val('');
               $(`#Ruang`).prop('checked', true);
               $('#formGeneral').attr('action', '<?= base_url('sarpras/add_kategori') ?>');

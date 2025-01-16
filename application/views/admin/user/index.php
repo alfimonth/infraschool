@@ -226,8 +226,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                       <input class="form-control" name="password" id="password" type="password" placeholder="Masukkan password" required>
                     </div>
                     <div class="col-md-6">
-                      <label for="confirm-password" class="form-label">Konfirmasi Password</label>
-                      <input class="form-control" name="confirm-password" id="confirm-password" type="password" placeholder="Masukkan konfirmasi password" required>
+                      <label for="confirm_password" class="form-label">Konfirmasi Password</label>
+                      <input class="form-control" name="confirm_password" id="confirm_password" type="password" placeholder="Masukkan konfirmasi password" required>
                     </div>
                   </div>
                 </div>
@@ -259,7 +259,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           // Ketika tombol edit diklik
           $('.edit').on('click', function() {
             inputMode = 'edit';
-            $('#exampleModalCenterTitle').text('Edit Admin');
+            $('#exampleModalCenterTitle').text('Edit <?= $tipe ?>');
             const id = $(this).data('id');
             const fullname = $(this).data('fullname');
             const nomor_induk = $(this).data('nomor_induk');
@@ -274,7 +274,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             $('#status').val(status);
             $('#role').val(role);
             $('#password').prop('required', false);
-            $('#confirm-password').prop('required', false);
+            $('#confirm_password').prop('required', false);
             $('#formGeneral').attr('action', '<?= base_url('user/edit_admin/') ?>' + id);
 
 
@@ -284,10 +284,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
           $('#tambahData').on('click', function() {
             if (inputMode === 'edit') {
-              $('#exampleModalCenterTitle').text('Tambah Admin');
+              $('#exampleModalCenterTitle').text('Tambah <?= $tipe ?>');
               inputMode = 'add';
               $('#password').prop('required', true);
-              $('#confirm-password').prop('required', true);
+              $('#confirm_password').prop('required', true);
               $('#fullname').val('');
               $('#nomor_induk').val('');
               $('#email').val('');
@@ -299,6 +299,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
             }
           });
 
+        });
+
+        $('#formGeneral').on('submit', function(e) {
+          if ($('#password').val() !== $('#confirm_password').val()) {
+            e.preventDefault();
+            alert('Password dan konfirmasi password tidak cocok!');
+          }
         });
       </script>
 

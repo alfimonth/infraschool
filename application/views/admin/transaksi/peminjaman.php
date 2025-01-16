@@ -93,9 +93,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="card mb-4">
 
         <div class="card-body">
-          <a href="<?= base_url('export/logToExcel') ?>" class="btn btn-success mb-3"><i class="fas fa-file-excel me-2"></i>Excel </a>
-          <a href="<?= base_url('export/logToPdf') ?>" class="btn btn-danger mb-3"><i class="fas fa-file-pdf me-2"></i>Pdf </a>
-          <a href="<?= base_url('export/logPrint') ?>" target="_blank" class="btn btn-primary mb-3"><i class="fas fa-print me-2"></i>Print </a>
           <table id="datatablesSimple">
             <thead>
               <tr>
