@@ -90,11 +90,9 @@ class Transaksi extends MY_AdminController
   {
     $res = $this->ModelPinjam->return($id);
 
-    if ($res) {
-      $this->session->set_flashdata('message', 'Peminjaman berhasil dikembalikan.');
-    } else {
+    $res ?
+      $this->session->set_flashdata('message', 'Peminjaman berhasil dikembalikan.') :
       $this->session->set_flashdata('message', 'Peminjaman gagal dikembalikan.');
-    }
 
     backPage();
   }
