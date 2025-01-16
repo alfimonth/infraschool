@@ -99,6 +99,60 @@ class ModelPinjam extends CI_Model
     return true;
   }
 
+  public function return($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->update('pinjam', ['status' => 'dikembalikan']);
+
+    $this->db->select('*');
+    $this->db->from('detail_pinjam');
+    $this->db->where('id_pinjam', $id);
+    $query = $this->db->get();
+    $detailPinjam = $query->result_array();
+
+    foreach ($detailPinjam as $item) {
+      if ($item['tipe'] == 'Ruang') {
+        // Jika tipe ruang, update jumlah dipinjam pada tabel ruang
+        $this->db->set('dipinjam', 'dipinjam - ' . $item['jumlah'], false); // Decrement jumlah dipinjam
+        $this->db->where('id', $item['id_sarpras']);
+        $this->db->update('ruang');
+      } elseif ($item['tipe'] == 'Peralatan') {
+        // Jika tipe peralatan, update jumlah dipinjam pada tabel peralatan
+        $this->db->set('dipinjam', 'dipinjam - ' . $item['jumlah'], false); // Decrement jumlah dipinjam
+        $this->db->where('id', $item['id_sarpras']);
+        $this->db->update('peralatan');
+      }
+    }
+
+    return true;
+  }
+
+  public function reject($id){
+    $this->db->where('id', $id);
+    $this->db->update('pinjam', ['status' => 'ditolak']);
+
+    $this->db->select('*');
+    $this->db->from('detail_pinjam');
+    $this->db->where('id_pinjam', $id);
+    $query = $this->db->get();
+    $detailPinjam = $query->result_array();
+
+    foreach ($detailPinjam as $item) {
+      if ($item['tipe'] == 'Ruang') {
+        // Jika tipe ruang, update jumlah dipinjam pada tabel ruang
+        $this->db->set('dipinjam', 'dipinjam - ' . $item['jumlah'], false); // Decrement jumlah dipinjam
+        $this->db->where('id', $item['id_sarpras']);
+        $this->db->update('ruang');
+      } elseif ($item['tipe'] == 'Peralatan') {
+        // Jika tipe peralatan, update jumlah dipinjam pada tabel peralatan
+        $this->db->set('dipinjam', 'dipinjam - ' . $item['jumlah'], false); // Decrement jumlah dipinjam
+        $this->db->where('id', $item['id_sarpras']);
+        $this->db->update('peralatan');
+      }
+    }
+    return true;
+  }
+
 
   public function cekPengajuan()
   {

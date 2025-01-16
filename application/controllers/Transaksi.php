@@ -88,21 +88,23 @@ class Transaksi extends MY_AdminController
 
   public function kembali($id)
   {
-    $this->db->where('id', $id);
-    $this->db->update('pinjam', ['status' => 'dikembalikan']);
+    $res = $this->ModelPinjam->return($id);
 
-    $this->session->set_flashdata('message', 'Peminjaman selesai.');
+    if ($res) {
+      $this->session->set_flashdata('message', 'Peminjaman berhasil dikembalikan.');
+    } else {
+      $this->session->set_flashdata('message', 'Peminjaman gagal dikembalikan.');
+    }
+
     backPage();
   }
 
-
-
   public function reject($id)
   {
-    $this->db->where('id', $id);
-    $this->db->update('pinjam', ['status' => 'ditolak']);
-
-    $this->session->set_flashdata('message', 'Peminjaman berhasil ditolak.');
+    $res = $this->ModelPinjam->reject($id);
+    $res ?
+      $this->session->set_flashdata('message', 'Peminjaman berhasil ditolak.') :
+      $this->session->set_flashdata('message', 'Peminjaman gagal ditolak.');
     backPage();
   }
 }
