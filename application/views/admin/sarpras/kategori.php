@@ -122,10 +122,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         data-tipe="<?= $category['tipe'] ?>">
                         <i data-feather="edit"></i>
                       </button>
-                      <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                        class="btn btn-datatable btn-icon btn-transparent-dark hapus"
-                        data-id="<?= $category['id'] ?>"
-                        data-nama="<?= $category['nama'] ?>"><i data-feather="trash-2"></i></button>
+                      <?php if ($category['jumlah'] <= 0): ?>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                          class="btn btn-datatable btn-icon btn-transparent-dark hapus"
+                          data-id="<?= $category['id'] ?>"
+                          data-nama="<?= $category['nama'] ?>"><i data-feather="trash-2"></i>
+                        </button>
+                      <?php endif; ?>
                     </td>
                   </tr>
                 <?php $index++;
@@ -167,10 +170,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         data-tipe="<?= $category['tipe'] ?>">
                         <i data-feather="edit"></i>
                       </button>
-                      <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                        class="btn btn-datatable btn-icon btn-transparent-dark hapus"
-                        data-id="<?= $category['id'] ?>"
-                        data-nama="<?= $category['nama'] ?>"><i data-feather="trash-2"></i></button>
+                      <?php if ($category['jumlah'] <= 0): ?>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                          class="btn btn-datatable btn-icon btn-transparent-dark hapus"
+                          data-id="<?= $category['id'] ?>"
+                          data-nama="<?= $category['nama'] ?>"><i data-feather="trash-2"></i>
+                        </button>
+                      <?php endif; ?>
                     </td>
                   </tr>
                 <?php $index++;
@@ -212,10 +218,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         data-tipe="<?= $category['tipe'] ?>">
                         <i data-feather="edit"></i>
                       </button>
-                      <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                        class="btn btn-datatable btn-icon btn-transparent-dark hapus"
-                        data-id="<?= $category['id'] ?>"
-                        data-nama="<?= $category['nama'] ?>"><i data-feather="trash-2"></i></button>
+                      <?php if ($category['jumlah'] <= 0): ?>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                          class="btn btn-datatable btn-icon btn-transparent-dark hapus"
+                          data-id="<?= $category['id'] ?>"
+                          data-nama="<?= $category['nama'] ?>"><i data-feather="trash-2"></i>
+                        </button>
+                      <?php endif; ?>
                     </td>
                   </tr>
                 <?php $index++;
