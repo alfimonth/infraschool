@@ -354,22 +354,3 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         });
       </script>
-
-
-
-
-      <!-- <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-        <td>
-          <div class="badge bg-primary text-white rounded-pill">Full-time</div>
-        </td>
-        <td>
-          <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="more-vertical"></i></button>
-          <button class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
-        </td>
-      </tr> -->

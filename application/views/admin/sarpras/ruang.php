@@ -8,7 +8,7 @@
           <div class="row align-items-center justify-content-between pt-3">
             <div class="col-auto mb-3">
               <h1 class="page-header-title">
-                <div class="page-header-icon"><i data-feather="globe"></i></div>
+                <div class="page-header-icon"><i data-feather="home"></i></div>
                 Kelola Ruang
               </h1>
             </div>
@@ -95,10 +95,10 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>jenis Informasi</th>
+                <th>Jenis Ruang</th>
                 <th>Gambar</th>
                 <th>Luas</th>
-                <th>Tersedia</th>
+                <th>Baik</th>
                 <th>Rusak</th>
                 <th>Aksi</th>
               </tr>
@@ -114,16 +114,6 @@
                   <td><?= $room['baik'] ?> </td>
                   <td><?= $room['rusak'] ?> </td>
                   <td>
-                    <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
-                      data-id="<?= $room['id'] ?>"
-                      data-jenis="<?= $room['jenis'] ?>">
-                      <i data-feather="plus"></i>
-                    </button>
-                    <button class="btn btn-datatable  btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
-                      data-id="<?= $room['id'] ?>"
-                      data-jenis="<?= $room['jenis'] ?>">
-                      <i data-feather="minus"></i>
-                    </button>
                     <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
                       data-id="<?= $room['id'] ?>"
                       data-jenis="<?= $room['jenis'] ?>"
@@ -274,6 +264,20 @@
                   });
                 </script>
 
+                <div class="mb-3" id="log">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="baik" class="form-label">Jumlah Baik</label>
+                      <input class="form-control" name="baik" id="baik" type="number" placeholder="Masukkan baik" min="1" value="1" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="rusak" class="form-label">Jumlah Rusak</label>
+                      <input class="form-control" name="rusak" id="rusak" type="text" placeholder="Masukkan rusak" value="0" min="0">
+                    </div>
+                  </div>
+                </div>
+
+
                 <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Batal</button><button class="btn btn-primary" type="submit">Simpan</button></div>
             </form>
           </div>
@@ -287,6 +291,7 @@
           // Ketika tombol edit diklik
           $('.edit').on('click', function() {
             inputMode = 'edit';
+            $('#log').hide();
             updateKategori();
             $('#exampleModalCenterTitle').text('Edit Ruangan');
             const id = $(this).data('id');
@@ -315,6 +320,7 @@
             updateKategori();
             if (inputMode === 'edit') {
               inputMode = 'add';
+              $('#log').show();
               $('#exampleModalCenterTitle').text('Tambah Ruangan');
               $('#jenis').val('');
               $('#value').val('');

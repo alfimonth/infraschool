@@ -20,15 +20,18 @@ class ModelSarpras extends CI_Model
     if ($tipe == 'Ruang') {
       $this->db->select('kategori.*, COUNT(ruang.id) as jumlah');
       $this->db->join('ruang', 'ruang.id_kategori = kategori.id', 'left');
+      $this->db->group_by('kategori.id'); // Tambahkan GROUP BY
     }
     if ($tipe == 'Peralatan') {
       $this->db->select('kategori.*, COUNT(peralatan.id) as jumlah');
       $this->db->join('peralatan', 'peralatan.id_kategori = kategori.id', 'left');
+      $this->db->group_by('kategori.id'); // Tambahkan GROUP BY
     }
 
     if ($tipe == 'subPeralatan') {
       $this->db->select('kategori.*, COUNT(peralatan.id) as jumlah');
       $this->db->join('peralatan', 'peralatan.id_subkategori = kategori.id', 'left');
+      $this->db->group_by('kategori.id'); // Tambahkan GROUP BY
     }
     return $this->db->get()->result_array();
   }
@@ -47,14 +50,15 @@ class ModelSarpras extends CI_Model
   // Ruangan
   public function addRoom($data)
   {
-    return $this->db->insert('ruang', $data);
+    $this->db->insert('ruang', $data);
+    return $this->db->insert_id(); // Mengembalikan ID ruang yang baru saja dimasukkan
   }
   public function getRooms($filter = null)
   {
     if ($filter === "home") {
-      $this->db->order_by('id', 'desc');
       $this->db->where('baik >', 0);
     }
+    $this->db->where('ruang.deleted_at', null);
     return $this->db->get('ruang')->result_array();
   }
 
@@ -64,6 +68,7 @@ class ModelSarpras extends CI_Model
     $this->db->from('ruang');
     $this->db->join('kategori', 'kategori.id = ruang.id_kategori', 'left'); // Join tabel kategori
     $this->db->where('ruang.id', $id);
+    $this->db->where('ruang.deleted_at', null);
     return $this->db->get()->row_array();
   }
 
@@ -77,28 +82,40 @@ class ModelSarpras extends CI_Model
 
   public function deleteRoom($id)
   {
+    // $res = $this->db->select('image')->where('id', $id)->get('ruang')->row_array();
+    // $image_path = './public/uploads/sarpras/ruang/' . $res['image'];
+    // if (file_exists($image_path)) {
+    //   unlink($image_path);
+    // }
+    // $this->db->where('id', $id);
+    // return $this->db->delete('ruang');
+    // Ambil data image terlebih dahulu
     $res = $this->db->select('image')->where('id', $id)->get('ruang')->row_array();
-    $image_path = './public/uploads/sarpras/ruang/' . $res['image'];
-    if (file_exists($image_path)) {
-      unlink($image_path);
+
+    if ($res) {
+      // Update field `deleted_at` dengan timestamp saat ini
+      $data = ['deleted_at' => date('Y-m-d H:i:s')];
+      $this->db->where('id', $id);
+      return $this->db->update('ruang', $data);
     }
-    $this->db->where('id', $id);
-    return $this->db->delete('ruang');
+
+    return false;
   }
 
   // Peralatan
 
   public function addTool($data)
   {
-    return $this->db->insert('peralatan', $data);
+    $this->db->insert('peralatan', $data);
+    return $this->db->insert_id();
   }
 
   public function getTools($filter = null)
   {
     if ($filter === "home") {
-      $this->db->order_by('id', 'desc');
       $this->db->where('baik >', 0);
     }
+    $this->db->where('peralatan.deleted_at', null);
     return $this->db->get('peralatan')->result_array();
   }
 
@@ -110,6 +127,7 @@ class ModelSarpras extends CI_Model
         subkategori.nama as subkategori
     ');
     $this->db->from('peralatan');
+    $this->db->where('peralatan.deleted_at', null);
     $this->db->join('kategori as kategori', 'kategori.id = peralatan.id_kategori', 'left'); // Join kategori
     $this->db->join('kategori as subkategori', 'subkategori.id = peralatan.id_subkategori', 'left'); // Join sub_kategori
     $this->db->where('peralatan.id', $id);
@@ -126,13 +144,23 @@ class ModelSarpras extends CI_Model
 
   public function deleteTool($id)
   {
+    // $res = $this->db->select('image')->where('id', $id)->get('peralatan')->row_array();
+    // $image_path = './public/uploads/sarpras/peralatan/' . $res['image'];
+    // if (file_exists($image_path)) {
+    //   unlink($image_path);
+    // }
+    // $this->db->where('id', $id);
+    // return $this->db->delete('peralatan');
     $res = $this->db->select('image')->where('id', $id)->get('peralatan')->row_array();
-    $image_path = './public/uploads/sarpras/peralatan/' . $res['image'];
-    if (file_exists($image_path)) {
-      unlink($image_path);
+
+    if ($res) {
+      // Update field `deleted_at` dengan timestamp saat ini
+      $data = ['deleted_at' => date('Y-m-d H:i:s')];
+      $this->db->where('id', $id);
+      return $this->db->update('peralatan', $data);
     }
-    $this->db->where('id', $id);
-    return $this->db->delete('peralatan');
+
+    return false;
   }
 
 

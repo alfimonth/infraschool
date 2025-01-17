@@ -55,9 +55,8 @@
         <h1 class="text-primary fw-bold fs-3">Ruangan</h1>
         <div id="rooms" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-3">
           <?php foreach ($rooms as $room): ?>
-            <a href="<?= base_url('detail/room/' . $room['id']) ?>">
-
-              <div class="card h-100 shadow-sm border-0">
+            <a class="mb-3" href="<?= base_url('detail/room/' . $room['id']) ?>">
+              <div class="card h-100 shadow-sm border">
                 <!-- Gambar Ruangan -->
                 <div>
                   <div class="bg-primary bg-opacity-50 text-white px-2 py-1 fs-6">

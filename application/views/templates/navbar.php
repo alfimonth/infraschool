@@ -66,11 +66,7 @@
                     <i class="fas fa-history me-2"></i> Riwayat
                   </a>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="<?= base_url('user/change_password') ?>">
-                    <i class="fas fa-key me-2"></i> Ganti Password
-                  </a>
-                </li>
+
                 <li>
                   <hr class="dropdown-divider">
                 </li>

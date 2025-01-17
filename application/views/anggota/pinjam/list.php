@@ -104,7 +104,7 @@
               <input type="text" name="catatan" class="form-control" placeholder="contoh: tujuan peminjaman" id="catatan">
             </div>
             <div class="alert alert-warning mt-2" role="alert">
-              <i class="fas fa-info-circle"></i> Hanya isi field tanggal pengemabalian dan catatan jika sudah yakin dengan jumlah sarpras yang dipinjam.
+              <i class="fas fa-info-circle"></i> Hanya isi field tanggal pengembalian dan catatan jika sudah yakin dengan jumlah sarpras yang dipinjam.
             </div>
 
 

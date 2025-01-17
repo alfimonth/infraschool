@@ -7,6 +7,7 @@ class Sarpras extends MY_AdminController
   {
     parent::__construct();
     $this->load->model('ModelSarpras');
+    $this->load->model('ModelTransaksi');
   }
 
   public function index()
@@ -32,6 +33,8 @@ class Sarpras extends MY_AdminController
     $this->form_validation->set_rules('panjang', 'Panjang', 'required|numeric');
     $this->form_validation->set_rules('lebar', 'Lebar', 'required|numeric');
     $this->form_validation->set_rules('id_kategori', 'Kategori', 'required');
+    $this->form_validation->set_rules('baik', 'Baik', 'required|numeric');
+    $this->form_validation->set_rules('rusak', 'Rusak', 'required|numeric');
     if ($this->input->post('id_kategori') === 'new') {
       $this->form_validation->set_rules('new_kategori', 'Kategori Baru', 'required');
     }
@@ -65,14 +68,42 @@ class Sarpras extends MY_AdminController
               'nama' => $this->input->post('new_kategori')
             ]) :
             $this->input->post('id_kategori'),
+          'baik' => $this->input->post('baik'),
+          'rusak' => $this->input->post('rusak'),
           'image' => $image_path,
         ];
 
         // Simpan ke database
-        $this->ModelSarpras->addRoom($data);
+        $idRoom = $this->ModelSarpras->addRoom($data);
 
-        $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-        redirect('sarpras/ruang');
+        //add log masuk
+        $data = [
+          'tipe' => "masuk",
+          'kategori_sarpras' => "Ruang",
+          'id_sarpras' => $idRoom,
+          'jumlah' => $this->input->post('baik'),
+          'keterangan' => "Jumlah Awal",
+        ];
+
+        $data['id_user'] = $this->session->userdata('id');
+        $this->ModelTransaksi->addLog($data);
+
+        //add log rusak
+        if ($this->input->post('rusak') > 0) {
+          $data = [
+            'tipe' => "rusak",
+            'kategori_sarpras' => "Ruang",
+            'id_sarpras' => $idRoom,
+            'jumlah' => $this->input->post('rusak'),
+            'keterangan' => "Jumlah Awal",
+          ];
+
+          $data['id_user'] = $this->session->userdata('id');
+          $this->ModelTransaksi->addLog($data);
+        }
+
+        $this->session->set_flashdata('message', 'Data berhasil ditambahkan');
+        backPage();
       }
     }
   }
@@ -212,15 +243,40 @@ class Sarpras extends MY_AdminController
             ]) :
             $this->input->post('id_subkategori'),
           'image' => $image_path,
+          'baik' => $this->input->post('baik'),
+          'rusak' => $this->input->post('rusak')
         ];
 
-        $res = $this->ModelSarpras->addTool($data);
+        $idTool = $this->ModelSarpras->addTool($data);
 
-        $res ?
-          $this->session->set_flashdata('message', 'Peralatan berhasil ditambahkan!') :
-          $this->session->set_flashdata('message', 'Peralatan gagal ditambahkan!');
+        //add log masuk
+        $data = [
+          'id_user' => $this->session->userdata('id'),
+          'tipe' => "masuk",
+          'kategori_sarpras' => "Peralatan",
+          'id_sarpras' => $idTool,
+          'jumlah' => $this->input->post('baik'),
+          'keterangan' => "Jumlah Awal",
+        ];
 
-        redirect('sarpras/peralatan');
+        $this->ModelTransaksi->addLog($data);
+
+        if ($this->input->post('rusak') > 0) {
+          $data = [
+            'id_user' => $this->session->userdata('id'),
+            'tipe' => "rusak",
+            'kategori_sarpras' => "Peralatan",
+            'id_sarpras' => $idTool,
+            'jumlah' => $this->input->post('rusak'),
+            'keterangan' => "Jumlah Awal",
+          ];
+
+          $this->ModelTransaksi->addLog($data);
+        }
+
+        $this->session->set_flashdata('message', 'Peralatan berhasil ditambahkan!');
+
+        backPage();
       }
     }
   }

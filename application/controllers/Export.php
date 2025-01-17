@@ -33,7 +33,48 @@ class Export extends MY_AdminController
   public function logPrint()
   {
     $data['logs'] = $this->ModelTransaksi->getLogs();
-    
-    $this->load->view('admin/export/print/log', $data);    
+
+    $this->load->view('admin/export/print/log', $data);
+  }
+
+  public function sarprasToExcel()
+  {
+    $data['title'] = 'Sarpras';
+    $data['sarpras'] = $this->ModelSarpras->getSarpras();
+    $this->load->view('admin/export/excel/sarpras', $data);
+  }
+
+  public function sarprasToPdf()
+  {
+    $data['title'] = 'Sarpras';
+    $data['sarpras'] = $this->ModelSarpras->getSarpras();
+    $this->load->view('admin/export/pdf/sarpras', $data);
+  }
+
+  public function sarprasPrint()
+  {
+    $data['sarpras'] = $this->ModelSarpras->getSarpras();
+
+    $this->load->view('admin/export/print/sarpras', $data);
+  }
+
+  public function pinjamToExcel()
+  {
+    $data['title'] = 'Pinjam';
+    $data['pinjam'] = $this->ModelTransaksi->getPinjam();
+    $this->load->view('admin/export/excel/pinjam', $data);
+  }
+
+  public function pinjamToPdf()
+  {
+    $data['title'] = 'Pinjam';
+    $data['pinjam'] = $this->ModelTransaksi->getPinjam();
+    $this->load->view('admin/export/pdf/pinjam', $data);
+  }
+
+  public function pinjamPrint()
+  {
+    $data['pinjam'] = $this->ModelTransaksi->getPinjam();
+    $this->load->view('admin/export/print/pinjam', $data);
   }
 }

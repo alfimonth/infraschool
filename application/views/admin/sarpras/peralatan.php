@@ -288,6 +288,18 @@
                     })
                   });
                 </script>
+                <div class="mb-3" id="log">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="baik" class="form-label">Jumlah Baik</label>
+                      <input class="form-control" name="baik" id="baik" type="number" placeholder="Masukkan baik" min="1" value="1" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="rusak" class="form-label">Jumlah Rusak</label>
+                      <input class="form-control" name="rusak" id="rusak" type="text" placeholder="Masukkan rusak" value="0" min="0">
+                    </div>
+                  </div>
+                </div>
 
                 <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Batal</button><button class="btn btn-primary" type="submit">Simpan</button></div>
             </form>
@@ -303,6 +315,7 @@
           $('.edit').on('click', function() {
             inputMode = 'edit';
             $('#exampleModalCenterTitle').text('Edit Peralatan');
+            $('#log').hide();
             const id = $(this).data('id');
             const jenis = $(this).data('jenis');
             const image = $(this).data('image');
@@ -329,6 +342,7 @@
             updateKategori();
             if (inputMode === 'edit') {
               inputMode = 'add';
+              $('#log').show();
               $('#exampleModalCenterTitle').text('Tambah Peralatan');
               $('#jenis').val('');
               $('#value').val('');
