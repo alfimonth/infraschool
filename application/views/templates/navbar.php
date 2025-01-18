@@ -37,7 +37,7 @@
         <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>#rooms">Ruangan</a></li>
         <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>#tools">Peralatan</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>#contact">Contact</a></li>
 
         <?php if ($this->session->userdata('nomor_induk')) : ?>
           <?php if (getProfile('role') === 'admin') : ?>
