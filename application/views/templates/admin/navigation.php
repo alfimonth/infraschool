@@ -168,13 +168,13 @@
           <!-- Sidenav Accordion (Components)-->
 
           <!-- Sidenav Heading (Addons)-->
-          <div class="sidenav-menu-heading">Laporan</div>
+          <div class="sidenav-menu-heading">Export</div>
           <!-- Sidenav Link (Charts)-->
 
           <!-- Sidenav Link (Tables)-->
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link <?= uri_string() == 'export' ? 'active' : "" ?>" href="<?= base_url('export') ?>" target="_blank">
             <div class="nav-link-icon"><i data-feather="printer"></i></div>
-            Laporan Tahunan
+            Export Sarpras
           </a>
         </div>
       </div>

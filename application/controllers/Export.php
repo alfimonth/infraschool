@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class Export extends MY_AdminController
 {
   public function __construct()
@@ -9,11 +12,19 @@ class Export extends MY_AdminController
     $this->load->model('ModelTransaksi');
     $this->load->model('ModelSarpras');
     $this->load->model('ModelPinjam');
+    date_default_timezone_set('Asia/Jakarta');
   }
 
   public function index()
   {
-    redirect('transaksi/log');
+    // Data untuk ditampilkan
+    $data['general_info'] = $this->ModelUtama->getData();
+    $data['ruang'] = $this->ModelSarpras->getDetailedCategories('Ruang');
+    $data['peralatan'] = $this->ModelSarpras->getDetailedCategories('Peralatan');
+    $data['admin'] = $this->session->userdata('fullname');
+
+    // dd($data);
+    $this->load->view('admin/export/print/sarpras', $data);
   }
 
   // Ruangan
