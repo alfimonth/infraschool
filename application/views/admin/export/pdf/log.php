@@ -10,11 +10,11 @@ date_default_timezone_set('Asia/Jakarta');
 
 // Gunakan IntlDateFormatter untuk format tanggal lokal
 $formatter = new IntlDateFormatter(
-  'id_ID', // Lokal Indonesia
-  IntlDateFormatter::FULL, // Format tanggal penuh
-  IntlDateFormatter::FULL, // Format waktu penuh
-  'Asia/Jakarta', // Timezone
-  IntlDateFormatter::GREGORIAN
+    'id_ID', // Lokal Indonesia
+    IntlDateFormatter::FULL, // Format tanggal penuh
+    IntlDateFormatter::FULL, // Format waktu penuh
+    'Asia/Jakarta', // Timezone
+    IntlDateFormatter::GREGORIAN
 );
 
 // Format khusus untuk tanggal dan waktu
@@ -23,11 +23,11 @@ $timestamp = $formatter->format(new DateTime()); // Timestamp saat ini
 
 $path = $_SERVER['DOCUMENT_ROOT'] . "/infraschool/public/assets/img/is.png"; // URL logo
 if (file_exists($path)) {
-  $type = pathinfo($path, PATHINFO_EXTENSION);
-  $data = file_get_contents($path);
-  $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+    $type = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 } else {
-  die('Gambar tidak ditemukan di path: ' . $path);
+    die('Gambar tidak ditemukan di path: ' . $path);
 }
 // die;
 // Data untuk tabel
@@ -92,7 +92,7 @@ $html = '
             <div class="app-info">
                 <div>SARANA PRASARANA</div>
                 <div>SMK AL FATAH BANJARNEGARA</div>
-                <div>Tahun Pelajaran 2024/2025</div>
+                <div>Tahun Pelajaran ' . getTahunAjaran() . '</div>
             </div>
         </div>
         <div class="timestamp">Generated: ' . $timestamp . '</div>
@@ -115,7 +115,7 @@ $html = '
 // Data log
 $index = 1;
 foreach ($logs as $log) {
-  $html .= '<tr>
+    $html .= '<tr>
         <td>' . $index++ . '</td>
         <td>' . date('d M Y - H:i', strtotime($log['tanggal'])) . '</td>
         <td>' . $log['jenis_sarpras'] . '</td>

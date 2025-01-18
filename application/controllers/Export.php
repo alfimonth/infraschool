@@ -8,6 +8,7 @@ class Export extends MY_AdminController
     parent::__construct();
     $this->load->model('ModelTransaksi');
     $this->load->model('ModelSarpras');
+    $this->load->model('ModelPinjam');
   }
 
   public function index()
@@ -61,20 +62,20 @@ class Export extends MY_AdminController
   public function pinjamToExcel()
   {
     $data['title'] = 'Pinjam';
-    $data['pinjam'] = $this->ModelTransaksi->getPinjam();
+    $data['pinjam'] = $this->ModelPinjam->getAllPinjam();
     $this->load->view('admin/export/excel/pinjam', $data);
   }
 
   public function pinjamToPdf()
   {
     $data['title'] = 'Pinjam';
-    $data['pinjam'] = $this->ModelTransaksi->getPinjam();
+    $data['pinjam'] = $this->ModelPinjam->getAllPinjam();
     $this->load->view('admin/export/pdf/pinjam', $data);
   }
 
   public function pinjamPrint()
   {
-    $data['pinjam'] = $this->ModelTransaksi->getPinjam();
+    $data['pinjam'] = $this->ModelPinjam->getAllPinjam();
     $this->load->view('admin/export/print/pinjam', $data);
   }
 }

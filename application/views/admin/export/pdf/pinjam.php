@@ -1,31 +1,37 @@
 <?php
+require 'vendor/autoload.php'; // Pastikan Dompdf sudah terinstall melalui Composer
 
-$appName = $this->config->item('app_name');
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+$dompdf = new Dompdf();
+
 date_default_timezone_set('Asia/Jakarta');
 
 // Gunakan IntlDateFormatter untuk format tanggal lokal
 $formatter = new IntlDateFormatter(
-    'id_ID', // Lokal Indonesia
-    IntlDateFormatter::FULL, // Format tanggal penuh
-    IntlDateFormatter::FULL, // Format waktu penuh
-    'Asia/Jakarta', // Timezone
-    IntlDateFormatter::GREGORIAN
+  'id_ID', // Lokal Indonesia
+  IntlDateFormatter::FULL, // Format tanggal penuh
+  IntlDateFormatter::FULL, // Format waktu penuh
+  'Asia/Jakarta', // Timezone
+  IntlDateFormatter::GREGORIAN
 );
 
 // Format khusus untuk tanggal dan waktu
 $formatter->setPattern('d MMMM yyyy HH:mm:ss');
-$timestamp = $formatter->format(new DateTime());
+$timestamp = $formatter->format(new DateTime()); // Timestamp saat ini
 
-// Ambil path logo
+// Path logo
 $path = $_SERVER['DOCUMENT_ROOT'] . "/infraschool/public/assets/img/is.png";
 if (file_exists($path)) {
-    $type = pathinfo($path, PATHINFO_EXTENSION);
-    $data = file_get_contents($path);
-    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+  $type = pathinfo($path, PATHINFO_EXTENSION);
+  $data = file_get_contents($path);
+  $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 } else {
-    die('Gambar tidak ditemukan di path: ' . $path);
+  die('Gambar tidak ditemukan di path: ' . $path);
 }
 
+// Data untuk tabel
 $html = '
 <!DOCTYPE html>
 <html lang="en">
@@ -92,42 +98,65 @@ $html = '
         </div>
         <div class="timestamp">Generated: ' . $timestamp . '</div>
     </div>
-    <h3 style="text-align:center;">Log Transaksi Sarana Prasarana</h3>
+    <h3 style="text-align:center;">Data Peminjaman Sarana Prasarana</h3>
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Tanggal</th>
+                <th>ID Pinjam</th>
+                <th>Status</th>
+                <th>Tanggal Pinjam</th>
+                <th>Tanggal Kembali</th>
+                <th>Nama Peminjam</th>
+                <th>Email Peminjam</th>
+                <th>Catatan</th>
                 <th>Nama Sarpras</th>
-                <th>Jenis Transaksi</th>
                 <th>Jumlah</th>
-                <th>Oleh</th>
             </tr>
         </thead>
         <tbody>';
 
-
-// Data log
+// Data peminjaman
 $index = 1;
-foreach ($logs as $log) {
+foreach ($pinjam as $item) {
+  foreach ($item['list'] as $detail) {
     $html .= '<tr>
-        <td>' . $index++ . '</td>
-        <td>' . date('d M Y - H:i', strtotime($log['tanggal'])) . '</td>
-        <td>' . $log['jenis_sarpras'] . '</td>
-        <td>' . ucfirst($log['tipe']) . '</td>
-        <td>' . $log['jumlah'] . '</td>
-        <td>' . $log['fullname'] . '</td>
-    </tr>';
+            <td>' . $index++ . '</td>
+            <td>' . $item['id_pinjam'] . '</td>
+            <td>' . ucfirst($item['status']) . '</td>
+            <td>' . date('d M Y', strtotime($item['tgl_pinjam'])) . '</td>
+            <td>' . date('d M Y', strtotime($item['tgl_kembali'])) . '</td>
+            <td>' . $item['user']['nama'] . '</td>
+            <td>' . $item['user']['email'] . '</td>
+            <td>' . $item['catatan'] . '</td>
+            <td>' . $detail['nama_sarpras'] . '</td>
+            <td>' . $detail['jumlah'] . '</td>
+        </tr>';
+  }
 }
 
 $html .= '
         </tbody>
     </table>
 </body>
-<script>
-    window.print();
-</script>
 </html>';
 
-// Tampilkan HTML untuk dicetak
-echo $html;
+// Atur Dompdf
+$options = new Options();
+$options->set('isHtml5ParserEnabled', true);
+$dompdf->setOptions($options);
+
+// Muat HTML ke Dompdf
+$dompdf->loadHtml($html);
+$dompdf->setPaper('A4', 'portrait'); // Ukuran dan orientasi halaman
+
+// Render PDF
+$dompdf->render();
+
+// Kirim output ke browser
+$filename = "Data_Peminjaman_Sarpras_" . date('Ymd_His') . ".pdf";
+header("Content-Type: application/pdf");
+header("Content-Disposition: attachment; filename=\"$filename\"");
+
+echo $dompdf->output();
+exit;

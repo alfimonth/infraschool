@@ -5,11 +5,11 @@ date_default_timezone_set('Asia/Jakarta');
 
 // Gunakan IntlDateFormatter untuk format tanggal lokal
 $formatter = new IntlDateFormatter(
-    'id_ID', // Lokal Indonesia
-    IntlDateFormatter::FULL, // Format tanggal penuh
-    IntlDateFormatter::FULL, // Format waktu penuh
-    'Asia/Jakarta', // Timezone
-    IntlDateFormatter::GREGORIAN
+  'id_ID', // Lokal Indonesia
+  IntlDateFormatter::FULL, // Format tanggal penuh
+  IntlDateFormatter::FULL, // Format waktu penuh
+  'Asia/Jakarta', // Timezone
+  IntlDateFormatter::GREGORIAN
 );
 
 // Format khusus untuk tanggal dan waktu
@@ -19,11 +19,11 @@ $timestamp = $formatter->format(new DateTime());
 // Ambil path logo
 $path = $_SERVER['DOCUMENT_ROOT'] . "/infraschool/public/assets/img/is.png";
 if (file_exists($path)) {
-    $type = pathinfo($path, PATHINFO_EXTENSION);
-    $data = file_get_contents($path);
-    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+  $type = pathinfo($path, PATHINFO_EXTENSION);
+  $data = file_get_contents($path);
+  $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 } else {
-    die('Gambar tidak ditemukan di path: ' . $path);
+  die('Gambar tidak ditemukan di path: ' . $path);
 }
 
 $html = '
@@ -42,7 +42,6 @@ $html = '
             justify-content: space-between;
             margin-bottom: 20px;
         }
-
         .header .logo-container {
             display: flex;
             align-items: center;
@@ -92,32 +91,41 @@ $html = '
         </div>
         <div class="timestamp">Generated: ' . $timestamp . '</div>
     </div>
-    <h3 style="text-align:center;">Log Transaksi Sarana Prasarana</h3>
+    <h3 style="text-align:center;">Data Peminjaman Sarana Prasarana</h3>
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Tanggal</th>
+                <th>ID Pinjam</th>
+                <th>Status</th>
+                <th>Tanggal Pinjam</th>
+                <th>Tanggal Kembali</th>
+                <th>Nama Peminjam</th>
+                <th>Email Peminjam</th>
+                <th>Catatan</th>
                 <th>Nama Sarpras</th>
-                <th>Jenis Transaksi</th>
                 <th>Jumlah</th>
-                <th>Oleh</th>
             </tr>
         </thead>
         <tbody>';
 
-
-// Data log
+// Data pinjam
 $index = 1;
-foreach ($logs as $log) {
+foreach ($pinjam as $item) {
+  foreach ($item['list'] as $detail) {
     $html .= '<tr>
-        <td>' . $index++ . '</td>
-        <td>' . date('d M Y - H:i', strtotime($log['tanggal'])) . '</td>
-        <td>' . $log['jenis_sarpras'] . '</td>
-        <td>' . ucfirst($log['tipe']) . '</td>
-        <td>' . $log['jumlah'] . '</td>
-        <td>' . $log['fullname'] . '</td>
-    </tr>';
+            <td>' . $index++ . '</td>
+            <td>' . $item['id_pinjam'] . '</td>
+            <td>' . ucfirst($item['status']) . '</td>
+            <td>' . date('d M Y', strtotime($item['tgl_pinjam'])) . '</td>
+            <td>' . date('d M Y', strtotime($item['tgl_kembali'])) . '</td>
+            <td>' . $item['user']['nama'] . '</td>
+            <td>' . $item['user']['email'] . '</td>
+            <td>' . $item['catatan'] . '</td>
+            <td>' . $detail['nama_sarpras'] . '</td>
+            <td>' . $detail['jumlah'] . '</td>
+        </tr>';
+  }
 }
 
 $html .= '
