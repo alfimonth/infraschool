@@ -75,9 +75,9 @@
       </section>
       <section class="my-5" id="tools">
         <h1 class="text-primary fw-bold fs-3">Peralatan</h1>
-        <div id="tools" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-3">
+        <div id="rooms" class="mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-3">
           <?php foreach ($tools as $tool): ?>
-            <a href="<?= base_url('detail/peralatan/' . $tool['id']) ?>">
+            <a class="mb-3" href="<?= base_url('detail/peralatan/' . $tool['id']) ?>">
 
               <div class="card h-100 shadow-sm border-0">
                 <!-- Gambar Ruangan -->
@@ -87,17 +87,16 @@
                 <img class="card-img-top" src="<?= base_url('public/uploads/sarpras/peralatan/' . $tool['image']) ?>" alt="<?= $room['jenis'] ?>">
               </div>
 
+            </a>
+          <?php endforeach; ?>
         </div>
-        </a>
-      <?php endforeach; ?>
+
+        <!-- <div class="clearfix"><a class="btn btn-primary rounded" href="#!">Selengkapnya →</a></div> -->
+      </section>
     </div>
 
-    <!-- <div class="clearfix"><a class="btn btn-primary rounded" href="#!">Selengkapnya →</a></div> -->
-    </section>
+    <!-- Pager-->
+
   </div>
-
-  <!-- Pager-->
-
-</div>
 </div>
 </div>

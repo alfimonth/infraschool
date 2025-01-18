@@ -8,7 +8,7 @@
           <div class="row align-items-center justify-content-between pt-3">
             <div class="col-auto mb-3">
               <h1 class="page-header-title">
-                <div class="page-header-icon"><i data-feather="globe"></i></div>
+                <div class="page-header-icon"><i data-feather="package"></i></div>
                 Kelola Peralatan
               </h1>
             </div>
@@ -112,16 +112,7 @@
                   <td><?= $tool['baik'] ?> </td>
                   <td><?= $tool['rusak'] ?> </td>
                   <td>
-                    <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
-                      data-id="<?= $tool['id'] ?>"
-                      data-jenis="<?= $tool['jenis'] ?>">
-                      <i data-feather="plus"></i>
-                    </button>
-                    <button class="btn btn-datatable  btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
-                      data-id="<?= $tool['id'] ?>"
-                      data-jenis="<?= $tool['jenis'] ?>">
-                      <i data-feather="minus"></i>
-                    </button>
+
                     <button class="btn btn-datatable btn-icon btn-transparent-dark edit" data-bs-target="#modalAddGeneral" data-bs-toggle="modal"
                       data-id="<?= $tool['id'] ?>"
                       data-jenis="<?= $tool['jenis'] ?>"
