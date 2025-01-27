@@ -172,7 +172,7 @@
           <!-- Sidenav Link (Charts)-->
 
           <!-- Sidenav Link (Tables)-->
-          <a class="nav-link <?= uri_string() == 'export' ? 'active' : "" ?>" href="<?= base_url('export') ?>" target="_blank">
+          <a class="nav-link <?= uri_string() == 'export' ? 'active' : "" ?>" href="<?= base_url('export') ?>">
             <div class="nav-link-icon"><i data-feather="printer"></i></div>
             Export Sarpras
           </a>

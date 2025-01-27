@@ -18,14 +18,21 @@ class Export extends MY_AdminController
   public function index()
   {
     // Data untuk ditampilkan
-    $data['general_info'] = $this->ModelUtama->getData();
-    $data['ruang'] = $this->ModelSarpras->getDetailedCategories('Ruang');
-    $data['peralatan'] = $this->ModelSarpras->getDetailedCategories('Peralatan');
-    $data['admin'] = $this->session->userdata('fullname');
+    // $data['general_info'] = $this->ModelUtama->getData();
+    // $data['ruang'] = $this->ModelSarpras->getDetailedCategories('Ruang');
+    // $data['peralatan'] = $this->ModelSarpras->getDetailedCategories('Peralatan');
+    // $data['admin'] = $this->session->userdata('fullname');
 
     // dd($data);
-    $this->load->view('admin/export/print/sarpras', $data);
+    // $this->load->view('admin/export/print/sarpras', $data);
+    $data['tahun_ajaran'] = $this->ModelUtama->getAllTahunAjaran();
+    // dd($data['tahun_ajaran']);
+
+    $this->load->view('templates/admin/header', $data);
+    $this->load->view('admin/export/index');
+    $this->load->view('templates/admin/footer');
   }
+
 
   // Ruangan
   public function logToExcel()
@@ -65,8 +72,19 @@ class Export extends MY_AdminController
 
   public function sarprasPrint()
   {
-    $data['sarpras'] = $this->ModelSarpras->getSarpras();
+    $input = $this->input->post();
 
+    $tahun_ajaran = $this->db->where('id', $input['tahun_ajaran'])->get('tahun_ajaran')->row_array();
+
+    $data['general_info'] = $this->ModelUtama->getData($tahun_ajaran['end_at']);
+    $data['ruang'] = $this->ModelSarpras
+      ->getDetailedCategories('Ruang', $tahun_ajaran['end_at']);
+    $data['peralatan'] = $this->ModelSarpras
+      ->getDetailedCategories('Peralatan', $tahun_ajaran['end_at']);
+    $data['admin'] = $this->session->userdata('fullname');
+    $data['tahun_ajaran'] = $tahun_ajaran['nama'];
+    $data['end_at'] = $tahun_ajaran['end_at'];
+    // dd($data);
     $this->load->view('admin/export/print/sarpras', $data);
   }
 

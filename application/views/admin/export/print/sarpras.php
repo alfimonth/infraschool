@@ -82,7 +82,7 @@ $html = '
             <div class="app-info">
                 <div>SARANA PRASARANA</div>
                 <div>SMK AL FATAH BANJARNEGARA</div>
-                <div>Tahun Pelajaran ' . getTahunAjaran() . '</div>
+                <div>Tahun Pelajaran ' . $tahun_ajaran . '</div>
             </div>
         </div>
         <div class="timestamp">Generated: ' . $timestamp . '</div>
@@ -110,21 +110,27 @@ $html .= '<div class="section-title">Daftar Ruang</div>
     </thead>
     <tbody>';
 
-$index = 0;
+$index = 1;
 foreach ($ruang as $ruang) {
+    $logmasuk = $this->db->where('created_at >', $end_at)->where('tipe', 'masuk')->where('id_sarpras', $ruang['id'])->get('log')->result_array();
+    $jumlahmasuk = 0;
+    foreach ($logmasuk as $lm) {
+        $jumlahmasuk += $lm['jumlah'];
+    }
+    // dd($jumlahmasuk);
     $html .= '<tr>
     <td>' . $index++ . '</td>
     <td>' . $ruang['jenis'] . '</td>
         <td>' . $ruang['kategori_nama'] . '</td>
         <td>' . $ruang['panjang'] . ' x ' . $ruang['lebar'] . ' m' .  '<sup>2</sup>' . '</td>
-        <td>' . $ruang['baik'] . '</td>
+        <td>' . $ruang['baik'] - $jumlahmasuk . '</td>
         <td>' . $ruang['rusak'] . '</td>
     </tr>';
 }
 $html .= '</tbody>
 </table>';
 
-$index = 0;
+$index = 1;
 // Section Peralatan
 $html .= '<div class="section-title">Daftar Peralatan</div>
 <table>

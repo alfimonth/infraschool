@@ -4,12 +4,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelSarpras extends CI_Model
 {
-  public function getDetailedCategories($type)
+  public function getDetailedCategories($type, $filter = null)
   {
     if ($type == 'Ruang') {
       $this->db->select('k.id as kategori_id, k.nama as kategori_nama, ruang.*');
       $this->db->from('kategori k');
       $this->db->join('ruang', 'ruang.id_kategori = k.id', 'left');
+      if ($filter) {
+        $this->db->where('ruang.created_at <=', $filter);
+      }
       $this->db->where('k.tipe', $type);
       $query = $this->db->get();
       return $query->result_array();
@@ -19,6 +22,9 @@ class ModelSarpras extends CI_Model
       $this->db->select('k.id as kategori_id, k.nama as kategori_nama, peralatan.*');
       $this->db->from('kategori k');
       $this->db->join('peralatan', 'peralatan.id_kategori = k.id', 'left');
+      if ($filter) {
+        $this->db->where('peralatan.created_at <=', $filter);
+      }
       $this->db->where('k.tipe', $type);
       $query = $this->db->get();
       return $query->result_array();

@@ -6,7 +6,10 @@ class ModelUtama extends CI_Model
 {
     public function getData($filter = null)
     {
-        
+        if ($filter !== null) {
+            // dd($filter);
+            return $this->db->where('created_at <=', $filter)->get('general_info')->result_array();
+        }
         return $this->db->get('general_info')->result_array();
     }
 
